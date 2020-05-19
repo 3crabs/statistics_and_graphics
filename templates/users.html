@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Moodle</title>
+</head>
+<body>
+<!-- NAVBAR -->
+<ul class="nav justify-content-center">
+    <li class="nav-item">
+        <a class="nav-link active" href="/">Главная</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/users">Участники</a>
+    </li>
+</ul>
+
+<!-- CONTENT -->
+<div class="container">
+    <div id="chart_div"></div>
+    <h1 class="mx-0 my-3">Список участников системы</h1>
+    <form class="form-inline" action="">
+        <div class="form-group mr-sm-3 mb-2">
+            <input type="text" class="form-control" id="search">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Поиск</button>
+    </form>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ФИО</th>
+            <th scope="col">Последний доступ</th>
+            <th scope="col">Количество курсов</th>
+            <th scope="col">Средняя оценка</th>
+            <th scope="col">Входов на платформу</th>
+            <th scope="col">Общее время использования</th>
+            <th scope="col">Количество действий</th>
+            <th scope="col">Время/вход</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr onclick="document.location = '';">
+            <td><a href="studentMarks.html">Иванов</a></td>
+            <td>11.05.2020</td>
+            <td>3</td>
+            <td>60/100</td>
+            <td>20</td>
+            <td>9 ч</td>
+            <td>110</td>
+            <td>27 мин</td>
+        </tr>
+        <tr onclick="document.location = '';">
+            <td><a href="#">Сидоров</a></td>
+            <td>07.04.2020</td>
+            <td>2</td>
+            <td>82/100</td>
+            <td>30</td>
+            <td>6 ч</td>
+            <td>70</td>
+            <td>12.72</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</body>
+</html>
