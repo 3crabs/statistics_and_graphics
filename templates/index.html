@@ -1,128 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Moodle</title>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {packages: ['corechart', 'bar']});
-        google.charts.setOnLoadCallback(drawAxisTickColors);
+{% extends "wrapper.html" %}
 
-        function drawAxisTickColors() {
-            var data = google.visualization.arrayToDataTable([
-                ['Курс', 'Коэфициент вовлечения'],
-                ['Курс 1', 1.84],
-                ['Курс 2', 6.04],
-            ]);
-
-            var options = {
-                title: 'Коэфициент вовлечения по курсам',
-                chartArea: {width: '50%'},
-                hAxis: {
-                    title: 'Коэфициент вовлечения',
-                    minValue: 0,
-                    textStyle: {
-                        bold: true,
-                        fontSize: 12,
-                        color: '#4d4d4d'
-                    },
-                    titleTextStyle: {
-                        bold: true,
-                        fontSize: 18,
-                        color: '#4d4d4d'
-                    }
-                },
-                vAxis: {
-                    title: 'Курс',
-                    textStyle: {
-                        fontSize: 14,
-                        bold: true,
-                        color: '#848484'
-                    },
-                    titleTextStyle: {
-                        fontSize: 14,
-                        bold: true,
-                        color: '#848484'
-                    }
-                }
-            };
-            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
-        }
-    </script>
-</head>
-<body>
-<!-- NAVBAR -->
-<ul class="nav justify-content-center">
-    <li class="nav-item">
-        <a class="nav-link active" href="/">Главная</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/users">Участники</a>
-    </li>
-</ul>
-
-<!-- CONTENT -->
-<div class="container">
-    <div id="chart_div"></div>
-    <h1 class="mx-0 my-3">Список курсов в системе</h1>
-    <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Название</th>
-            <th scope="col">Преподаватель</th>
-            <th scope="col">Количество участников</th>
-            <th scope="col">Средняя оценка</th>
-            <th scope="col">Последний доступ</th>
-            <th scope="col">Всего входов на курс</th>
-            <th scope="col">Общее время использования</th>
-            <th scope="col">Коэфициент вовлечения</th>
-            <th scope="col">Количество модулей</th>
-            <th scope="col">Количество просмотров</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr onclick="document.location = 'courseInfo.html';">
-            <td><a href="#">Курс 1</a></td>
-            <td>ФИО 1</td>
-            <td>30</td>
-            <td>70/100</td>
-            <td>30.04.2020</td>
-            <td>130</td>
-            <td>22 ч</td>
-            <td>1,84</td>
-            <td>30</td>
-            <td>240</td>
-        </tr>
-        <tr onclick="document.location = '/courseInfo/2';">
-            <td>Курс 2</td>
-            <td>ФИО 1</td>
-            <td>40</td>
-            <td>55/100</td>
-            <td>10.05.2020</td>
-            <td>220</td>
-            <td>35 ч</td>
-            <td>6,04</td>
-            <td>20</td>
-            <td>1330</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-</body>
-</html>
+{% block content %}
+    <div class="container">
+        <div id="chart_div"></div>
+        <h1 class="mx-0 my-3">Список курсов в системе</h1>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Преподаватель</th>
+                <th scope="col">Количество участников</th>
+                <th scope="col">Средняя оценка</th>
+                <th scope="col">Последний доступ</th>
+                <th scope="col">Всего входов на курс</th>
+                <th scope="col">Общее время использования</th>
+                <th scope="col">Коэфициент вовлечения</th>
+                <th scope="col">Количество модулей</th>
+                <th scope="col">Количество просмотров</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr onclick="document.location = 'courseInfo.html';">
+                <td><a href="#">Курс 1</a></td>
+                <td>ФИО 1</td>
+                <td>30</td>
+                <td>70/100</td>
+                <td>30.04.2020</td>
+                <td>130</td>
+                <td>22 ч</td>
+                <td>1,84</td>
+                <td>30</td>
+                <td>240</td>
+            </tr>
+            <tr onclick="document.location = '/courseInfo/2';">
+                <td>Курс 2</td>
+                <td>ФИО 1</td>
+                <td>40</td>
+                <td>55/100</td>
+                <td>10.05.2020</td>
+                <td>220</td>
+                <td>35 ч</td>
+                <td>6,04</td>
+                <td>20</td>
+                <td>1330</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
