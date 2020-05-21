@@ -1,0 +1,55 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+    <!-- CONTENT -->
+    <div class="container">
+        <div id="chart_div"></div>
+        <div class="d-flex justify-content-between">
+            <h1 class="mx-0 my-3">Результаты</h1>
+            <button type="button" class="btn btn-primary my-auto">Экспорт оценок</button>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+            <h3>Студент: Иванов</h3>
+            <h3>Курс: Курс 1</h3>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Элемент</th>
+                <th scope="col">Тип</th>
+                <th scope="col">Оценка</th>
+                <th scope="col">Дата выполнения</th>
+                <th scope="col">Кто выставил</th>
+                <th scope="col">Количество попыток</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Тест 1</td>
+                <td>Тест</td>
+                <td>70/100</td>
+                <td>03.03.2020</td>
+                <td>система</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Тест 2</td>
+                <td>Тест</td>
+                <td>-/100</td>
+                <td>-</td>
+                <td>-</td>
+                <td>0</td>
+            </tr>
+            <tr onclick="document.location = '';">
+                <td>Задание 1</td>
+                <td>Задание</td>
+                <td>55/100</td>
+                <td>04.03.2020</td>
+                <td>преподаватель</td>
+                <td>2</td>
+            </tr>
+            </tbody>
+        </table>
+        <h4>Итоговая 60/100</h4>
+    </div>
+{% endblock %}
