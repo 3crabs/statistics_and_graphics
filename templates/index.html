@@ -32,6 +32,20 @@
                 <td>30</td>
                 <td>240</td>
             </tr>
+            {% for course in courses %}
+                <tr onclick="document.location = '/courses/1';">
+                    <td><a href="#">{{ course.fullname }}</a></td>
+                    <td>ФИО 1</td>
+                    <td>30</td>
+                    <td>70/100</td>
+                    <td>30.04.2020</td>
+                    <td>130</td>
+                    <td>22 ч</td>
+                    <td>1,84</td>
+                    <td>30</td>
+                    <td>240</td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>

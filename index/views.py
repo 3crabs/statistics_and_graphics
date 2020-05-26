@@ -1,7 +1,10 @@
 from django.shortcuts import render
 
+from index.models import MdlCourse
+
 
 def get_courses(request):
+    courses = MdlCourse.objects.all()
     return render(request, 'index.html', locals())
 
 
