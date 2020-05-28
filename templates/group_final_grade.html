@@ -1,0 +1,37 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+    <div class="container">
+        <div id="chart_div"></div>
+        <div class="d-flex justify-content-between">
+            <h1 class="mx-0 my-3">Итоговая успеваемость группы</h1>
+            <button type="button" class="btn btn-primary my-auto">Экспорт оценок</button>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th scope="col">ФИО/Курс</th>
+                <th scope="col">Курс 1</th>
+                <th scope="col">Курс 2</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Иванов</td>
+                <td>20</td>
+                <td>70</td>
+            </tr>
+            <tr>
+                <td>Петров</td>
+                <td>20</td>
+                <td>70</td>
+            </tr>
+            <tr>
+                <td>Средний балл</td>
+                <td>20</td>
+                <td>70</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
