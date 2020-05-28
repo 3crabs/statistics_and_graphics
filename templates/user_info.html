@@ -3,36 +3,32 @@
 {% block content %}
     <div class="container">
         <div id="chart_div"></div>
-        <div class="d-flex justify-content-between">
-            <h1 class="mx-0 my-3">Результаты</h1>
-            <button type="button" class="btn btn-primary my-auto">Экспорт оценок</button>
-        </div>
-        <div class="d-flex justify-content-between mb-2">
-            <h3>Студент: Иванов</h3>
-            <h3>Курс: Курс 1</h3>
-        </div>
+        <h1 class="mx-0 my-3">{ Имя студента }</h1>
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th scope="col">Элемент</th>
-                <th scope="col">Тип</th>
-                <th scope="col">Оценка</th>
-                <th scope="col">Дата выполнения</th>
-                <th scope="col">Кто выставил</th>
-                <th scope="col">Количество попыток</th>
+                <th scope="col">Курс</th>
+                <th scope="col">Роль</th>
+                <th scope="col">Последний доступ</th>
+                <th scope="col">Итоговая оценка</th>
+                <th scope="col">Просмотры</th>
+                <th scope="col">Затраченное время</th>
+                <th scope="col">Выполнено элементов</th>
+                <th scope="col">Активность пользователя</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Тест 1</td>
-                <td>Тест</td>
-                <td>70/100</td>
-                <td>03.03.2020</td>
-                <td>система</td>
-                <td>1</td>
+            <tr onclick="document.location = '';">
+                <td>Курс 1</td>
+                <td>Студент</td>
+                <td>11.05.2020</td>
+                <td>67</td>
+                <td>20</td>
+                <td>9 ч</td>
+                <td>11</td>
+                <td>27 мин</td>
             </tr>
             </tbody>
         </table>
-        <h4>Итоговая 60/100</h4>
     </div>
 {% endblock %}

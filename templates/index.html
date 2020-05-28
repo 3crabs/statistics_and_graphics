@@ -7,16 +7,15 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th scope="col">Название</th>
+                <th scope="col">Курс</th>
                 <th scope="col">Преподаватель</th>
                 <th scope="col">Количество участников</th>
-                <th scope="col">Средняя оценка</th>
+                <th scope="col">Средний балл</th>
                 <th scope="col">Последний доступ</th>
-                <th scope="col">Всего входов на курс</th>
-                <th scope="col">Общее время использования</th>
-                <th scope="col">Коэфициент вовлечения</th>
-                <th scope="col">Количество модулей</th>
-                <th scope="col">Количество просмотров</th>
+                <th scope="col">Входы на курс</th>
+                <th scope="col">Время использования</th>
+                <th scope="col">Просмотры</th>
+                <th scope="col">Коэфициент использования</th>
             </tr>
             </thead>
             <tbody>
@@ -28,9 +27,8 @@
                 <td>30.04.2020</td>
                 <td>130</td>
                 <td>22 ч</td>
-                <td>1,84</td>
-                <td>30</td>
                 <td>240</td>
+                <td>1,84</td>
             </tr>
             {% for course in courses %}
                 <tr onclick="document.location = '/courses/1';">
@@ -41,9 +39,8 @@
                     <td>30.04.2020</td>
                     <td>130</td>
                     <td>22 ч</td>
-                    <td>1,84</td>
-                    <td>30</td>
                     <td>240</td>
+                    <td>1,84</td>
                 </tr>
             {% endfor %}
             </tbody>
