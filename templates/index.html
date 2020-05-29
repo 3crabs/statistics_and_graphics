@@ -19,28 +19,28 @@
             </tr>
             </thead>
             <tbody>
-            <tr onclick="document.location = '/courses/1';">
-                <td><a href="#">Курс 1</a></td>
-                <td>ФИО 1</td>
-                <td>30</td>
-                <td>70/100</td>
-                <td>30.04.2020</td>
-                <td>130</td>
-                <td>22 ч</td>
-                <td>240</td>
-                <td>1,84</td>
-            </tr>
+{#            <tr onclick="document.location = '/courses/1';">#}
+{#                <td><a href="#">Курс 1</a></td>#}
+{#                <td>ФИО 1</td>#}
+{#                <td>30</td>#}
+{#                <td>70/100</td>#}
+{#                <td>30.04.2020</td>#}
+{#                <td>130</td>#}
+{#                <td>22 ч</td>#}
+{#                <td>240</td>#}
+{#                <td>1,84</td>#}
+{#            </tr>#}
             {% for course in courses %}
-                <tr onclick="document.location = '/courses/1';">
-                    <td><a href="#">{{ course.fullname }}</a></td>
-                    <td>ФИО 1</td>
-                    <td>30</td>
-                    <td>70/100</td>
-                    <td>30.04.2020</td>
-                    <td>130</td>
-                    <td>22 ч</td>
-                    <td>240</td>
-                    <td>1,84</td>
+                <tr onclick="document.location = '/courses/{{ course.id }}';">
+                    <td><a href="#">{{ course.name }}</a></td>
+                    <td>{{ course.teacher_name }}</td>
+                    <td>{{ course.count_user }}</td>
+                    <td>{{ course.avg }}</td>
+                    <td>{{ course.last_time }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             {% endfor %}
             </tbody>
