@@ -4,10 +4,17 @@ from index.models import User, Course
 
 
 def get_users(request):
+    name = request.GET.get("name", "")
     sql = "select user.id        as id, " \
           "       user.firstname as name " \
-          "from mdl_user as user"
+          "from mdl_user as user " \
+          "where 1"
+    if name:
+        print(name)
+        sql += " and user.firstname LIKE '%%" + name + "%%'"
+    print(sql)
     users = User.objects.raw(sql)
+    print(len(users))
     return render(request, 'users.html', locals())
 
 
