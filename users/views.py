@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
-from index.models import User, Course
+from index.models import Course
+from users.models import User
 
 
 def get_users(request):

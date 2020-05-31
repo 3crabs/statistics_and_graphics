@@ -8,16 +8,18 @@
             <thead>
             <tr>
                 <th scope="col">Группа</th>
-                <th scope="col">Количество участников</th>
-                <th scope="col">Успеваемость</th>
+                {#                <th scope="col">Количество участников</th>#}
+                {#                <th scope="col">Успеваемость</th>#}
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Группа 1</td>
-                <td>10</td>
-                <td>70/100</td>
-            </tr>
+            {% for group in groups %}
+                <tr>
+                    <td><a href="/groups/{{ group.id }}">{{ group.name }}</a></td>
+                    {#                <td>10</td>#}
+                    {#                <td>70/100</td>#}
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
