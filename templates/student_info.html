@@ -12,7 +12,9 @@
             <h3>Студент: {{ user.name }}</h3>
             <h3>Курс: {{ course.name }}</h3>
         </div>
-        <form method="POST" id="grade" action="/save"></form>
+        <form method="POST" id="grade" action="/courses/{{ course.id }}/users/{{ user.id }}/save">
+            {% csrf_token %}
+        </form>
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
@@ -31,7 +33,7 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.get_type }}</td>
-                    <td><input value="{{ item.get_grade }}" name="{{ user.id }}" form="grade" /></td>
+                    <td><input value="{{ item.get_grade }}" name="{{ item.grade_id }}" form="grade" /></td>
                     {#                    <td>03.03.2020</td>#}
                     {#                    <td>система</td>#}
                     {#                    <td>1</td>#}

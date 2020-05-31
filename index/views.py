@@ -143,7 +143,8 @@ def get_course_one_user(request, course_id, user_id):
           "       grade_items.grademin grade_min, " \
           "       grade_items.grademax grade_max, " \
           "       grade_items.itemmodule as type, " \
-          "       grade_grades.finalgrade as grade " \
+          "       grade_grades.finalgrade as grade," \
+          "       grade_grades.id as grade_id " \
           "from mdl_course as course, " \
           "     mdl_user as user, " \
           "     mdl_grade_items as grade_items," \
@@ -223,13 +224,42 @@ def save_one_course(request, course_id):
     for user in users:
         key = str(user.end_grade_id)
         if key != 'None':
-            print(key, key, key, key)
             old_value = user.end_grade
             new_value = request.POST[key]
-            print(key, old_value, new_value)
             if str(new_value) != str(old_value):
                 cursor = connection.cursor()
                 sql = "update mdl_grade_grades set finalgrade = " + str(new_value) + " where id = " + str(key)
-                print(sql)
+                cursor.execute(sql)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def save_course_one_user(request, course_id, user_id):
+    sql = "select grade_items.id as id, " \
+          "       grade_items.itemname name, " \
+          "       grade_items.grademin grade_min, " \
+          "       grade_items.grademax grade_max, " \
+          "       grade_items.itemmodule as type, " \
+          "       grade_grades.finalgrade as grade," \
+          "       grade_grades.id as grade_id " \
+          "from mdl_course as course, " \
+          "     mdl_user as user, " \
+          "     mdl_grade_items as grade_items," \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course.id" \
+          "  and grade_grades.itemid = grade_items.id" \
+          "  and grade_grades.userid = user.id " \
+          "  and grade_items.itemtype = 'mod'" \
+          "  and course.id = " + str(course_id) + \
+          "  and user.id = " + str(user_id)
+    items = GradeItems.objects.raw(sql)
+
+    for item in items:
+        key = str(item.grade_id)
+        if key != 'None':
+            old_value = item.grade
+            new_value = request.POST[key]
+            if str(new_value) != str(old_value):
+                cursor = connection.cursor()
+                sql = "update mdl_grade_grades set finalgrade = " + str(new_value) + " where id = " + str(key)
                 cursor.execute(sql)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

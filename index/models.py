@@ -13,6 +13,7 @@ class GradeItems(models.Model):
     grade_min = models.IntegerField()
     grade_max = models.IntegerField()
     grade = models.IntegerField()
+    grade_id = models.IntegerField()
 
     def get_type(self):
         if self.type == 'quiz':
@@ -26,5 +27,5 @@ class GradeItems(models.Model):
 
     def get_grade(self):
         if self.grade:
-            return str(int(self.grade)) + '/' + str(int(self.grade_max))
-        return str(int(self.grade_min)) + '/' + str(int(self.grade_max))
+            return str(self.grade)
+        return str(self.grade_min)
