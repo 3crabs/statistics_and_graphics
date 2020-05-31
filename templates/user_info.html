@@ -7,6 +7,7 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
+                <th>№</th>
                 <th scope="col">Курс</th>
                 {#                <th scope="col">Роль</th>#}
                 {#                <th scope="col">Последний доступ</th>#}
@@ -20,14 +21,15 @@
             <tbody>
             {% for course in courses %}
                 <tr>
+                    <td>{{ forloop.counter }}</td>
                     <td>{{ course.name }}</td>
-{#                    <td>Студент</td>#}
-{#                    <td>11.05.2020</td>#}
-{#                    <td>67</td>#}
-{#                    <td>20</td>#}
-{#                    <td>9 ч</td>#}
-{#                    <td>11</td>#}
-{#                    <td>27 мин</td>#}
+                    {#                    <td>Студент</td>#}
+                    {#                    <td>11.05.2020</td>#}
+                    {#                    <td>67</td>#}
+                    {#                    <td>20</td>#}
+                    {#                    <td>9 ч</td>#}
+                    {#                    <td>11</td>#}
+                    {#                    <td>27 мин</td>#}
                 </tr>
             {% endfor %}
             </tbody>

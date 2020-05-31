@@ -15,7 +15,6 @@ class GradeItems(models.Model):
     grade = models.IntegerField()
 
     def get_type(self):
-        print(self.type)
         if self.type == 'quiz':
             return "Тест"
         elif self.type == 'assign':

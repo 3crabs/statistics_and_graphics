@@ -10,17 +10,19 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
+                <th>№</th>
                 <th scope="col">ФИО/Курс</th>
-{#                <th scope="col">Курс 1</th>#}
-{#                <th scope="col">Курс 2</th>#}
+                {#                <th scope="col">Курс 1</th>#}
+                {#                <th scope="col">Курс 2</th>#}
             </tr>
             </thead>
             <tbody>
             {% for user in users %}
                 <tr>
+                    <td>{{ forloop.counter }}</td>
                     <td>{{ user.name }}</td>
-{#                    <td>20</td>#}
-{#                    <td>70</td>#}
+                    {#                    <td>20</td>#}
+                    {#                    <td>70</td>#}
                 </tr>
             {% endfor %}
             </tbody>

@@ -8,6 +8,12 @@ class User(models.Model):
     last_access = models.IntegerField()
     end_grade = models.IntegerField()
 
+    def get_end_grade(self):
+        if self.end_grade:
+            return self.end_grade
+        return "-"
+
     def get_last_access(self):
         if self.last_access:
             return datetime.datetime.fromtimestamp(self.last_access)
+        return "-"

@@ -16,6 +16,7 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
+                <th>№</th>
                 <th scope="col">ФИО студента</th>
                 <th scope="col">Последний доступ</th>
                 <th scope="col">Итоговая оценка</th>
@@ -28,6 +29,7 @@
             <tbody>
             {% for user in users %}
                 <tr>
+                    <td>{{ forloop.counter }}</td>
                     <td><a href="/courses/{{ course.id }}/users/{{ user.id }}">{{ user.name }}</a></td>
                     <td>{{ user.get_last_access }}</td>
                     <td><input value="{{ user.end_grade }}" name="{{ user.id }}" form="finalgrade" /></td>

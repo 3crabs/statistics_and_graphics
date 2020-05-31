@@ -6,13 +6,14 @@
         <h1 class="mx-0 my-3">Список участников системы</h1>
         <form class="form-inline" action="">
             <div class="form-group mr-sm-3 mb-2">
-                <input type="text" name="name" class="form-control" id="search">
+                <input type="text" name="name" class="form-control" id="search" value="{{ name }}">
             </div>
             <button type="submit" class="btn btn-primary mb-2">Поиск</button>
         </form>
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
+                <th>№</th>
                 <th scope="col">ФИО</th>
                 <th scope="col">Последний доступ</th>
                 {#                <th scope="col">Количество курсов</th>#}
@@ -25,6 +26,7 @@
             <tbody>
             {% for user in users %}
                 <tr>
+                    <td>{{ forloop.counter }}</td>
                     <td><a href="/users/{{ user.id }}">{{ user.name }}</a></td>
                     <td>{{ user.get_last_access }}</td>
                     {#                    <td>3</td>#}

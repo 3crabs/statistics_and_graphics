@@ -7,6 +7,7 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
+                <th>№</th>
                 <th scope="col">Курс</th>
                 <th scope="col">Преподаватель</th>
                 <th scope="col">Количество участников</th>
@@ -20,6 +21,7 @@
             <tbody>
             {% for course in courses %}
                 <tr>
+                    <td>{{ forloop.counter }}</td>
                     <td><a href="/courses/{{ course.id }}">{{ course.name }}</a></td>
                     <td>{{ course.teacher_name }}</td>
                     <td>{{ course.count_user }}</td>

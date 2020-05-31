@@ -7,16 +7,18 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
+                <th>№</th>
                 <th scope="col">Группа</th>
-                {#                <th scope="col">Количество участников</th>#}
+                <th scope="col">Количество участников</th>
                 {#                <th scope="col">Успеваемость</th>#}
             </tr>
             </thead>
             <tbody>
             {% for group in groups %}
                 <tr>
+                    <td>{{ forloop.counter }}</td>
                     <td><a href="/groups/{{ group.id }}">{{ group.name }}</a></td>
-                    {#                <td>10</td>#}
+                    <td>{{ group.count_users }}</td>
                     {#                <td>70/100</td>#}
                 </tr>
             {% endfor %}

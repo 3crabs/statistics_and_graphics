@@ -14,11 +14,8 @@ def get_users(request):
           "from mdl_user as user " \
           "where 1"
     if name:
-        print(name)
         sql += " and user.firstname LIKE '%%" + name + "%%'"
-    print(sql)
     users = User.objects.raw(sql)
-    print(len(users))
     return render(request, 'users.html', locals())
 
 
