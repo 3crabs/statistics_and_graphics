@@ -8,31 +8,33 @@
             <button type="button" class="btn btn-primary my-auto">Экспорт оценок</button>
         </div>
         <div class="d-flex justify-content-between mb-2">
-            <h3>Студент: Иванов</h3>
-            <h3>Курс: Курс 1</h3>
+            <h3>Студент: {{ user.name }}</h3>
+            <h3>Курс: {{ course.name }}</h3>
         </div>
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
                 <th scope="col">Элемент</th>
-                <th scope="col">Тип</th>
-                <th scope="col">Оценка</th>
-                <th scope="col">Дата выполнения</th>
-                <th scope="col">Оценил</th>
-                <th scope="col">Количество попыток</th>
+                {#                <th scope="col">Тип</th>#}
+                {#                <th scope="col">Оценка</th>#}
+                {#                <th scope="col">Дата выполнения</th>#}
+                {#                <th scope="col">Оценил</th>#}
+                {#                <th scope="col">Количество попыток</th>#}
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Тест 1</td>
-                <td>Тест</td>
-                <td>70/100</td>
-                <td>03.03.2020</td>
-                <td>система</td>
-                <td>1</td>
-            </tr>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+{#                    <td>Тест</td>#}
+{#                    <td>70/100</td>#}
+{#                    <td>03.03.2020</td>#}
+{#                    <td>система</td>#}
+{#                    <td>1</td>#}
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
-        <h4>Итоговая 60/100</h4>
+        <h4>Итоговая ???</h4>
     </div>
 {% endblock %}

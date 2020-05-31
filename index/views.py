@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from index.models import Course, User
+from index.models import Course, User, GradeItems
 
 
 def get_courses(request):
@@ -54,7 +54,10 @@ def get_one_course(request, course_id):
           "  and course.id = " + course_id
     course = User.objects.raw(sql)[0]
     sql = "select user.id        as id, " \
-          "       user.firstname as name " \
+          "       user.firstname as name, " \
+          "(select max(timeaccess) " \
+          "        from mdl_user_lastaccess as user_lastaccess " \
+          "        where user_lastaccess.courseid = course.id) as last_access " \
           "from mdl_user as user, " \
           "     mdl_role_assignments as role_assignments, " \
           "     mdl_context as context, " \
@@ -69,4 +72,51 @@ def get_one_course(request, course_id):
 
 
 def get_course_one_user(request, course_id, user_id):
-    return None
+    sql = "select user.id        as id, " \
+          "       user.firstname as name " \
+          "from mdl_user as user, " \
+          "     mdl_role_assignments as role_assignments, " \
+          "     mdl_context as context, " \
+          "     mdl_course as course " \
+          "where role_assignments.userid = user.id " \
+          "  and role_assignments.roleid = 5 " \
+          "  and role_assignments.contextid = context.id " \
+          "  and context.instanceid = course.id " \
+          "  and course.id = " + course_id + \
+          "  and user.id = " + user_id
+    user = User.objects.raw(sql)[0]
+
+    sql = "select course.id  as id, " \
+          "       course.shortname as name, " \
+          "       user.firstname   as teacher_name, " \
+          "" \
+          "(select count(*)" \
+          "    from mdl_user as user," \
+          "         mdl_role_assignments as role_assignments, " \
+          "         mdl_context as context " \
+          "    where role_assignments.userid = user.id " \
+          "      and role_assignments.roleid = 5 " \
+          "      and role_assignments.contextid = context.id " \
+          "      and context.instanceid = course.id)    as count_user " \
+          "" \
+          "from mdl_user as user, " \
+          "     mdl_role_assignments as role_assignments, " \
+          "     mdl_context as context, " \
+          "     mdl_course as course " \
+          "where role_assignments.userid = user.id " \
+          "  and role_assignments.roleid = 3 " \
+          "  and role_assignments.contextid = context.id " \
+          "  and context.instanceid = course.id " \
+          "  and course.id = " + course_id
+    course = User.objects.raw(sql)[0]
+
+    sql = "select grade_items.id as id, " \
+          "       grade_items.itemname name " \
+          "from mdl_course as course, " \
+          "     mdl_user as user, " \
+          "     mdl_grade_items as grade_items " \
+          "where grade_items.courseid = course.id " \
+          "  and course.id = " + str(course_id) + \
+          "  and user.id = " + str(user_id)
+    items = GradeItems.objects.raw(sql)
+    return render(request, 'student_info.html', locals())

@@ -11,7 +11,6 @@
                 <th scope="col">Преподаватель</th>
                 <th scope="col">Количество участников</th>
                 {#                <th scope="col">Средний балл</th>#}
-                {#                <th scope="col">Последний доступ</th>#}
                 {#                <th scope="col">Входы на курс</th>#}
                 {#                <th scope="col">Время использования</th>#}
                 {#                <th scope="col">Просмотры</th>#}
@@ -19,23 +18,11 @@
             </tr>
             </thead>
             <tbody>
-            {#            <tr onclick="document.location = '/courses/1';">#}
-            {#                <td><a href="#">Курс 1</a></td>#}
-            {#                <td>ФИО 1</td>#}
-            {#                <td>30</td>#}
-            {#                <td>70/100</td>#}
-            {#                <td>30.04.2020</td>#}
-            {#                <td>130</td>#}
-            {#                <td>22 ч</td>#}
-            {#                <td>240</td>#}
-            {#                <td>1,84</td>#}
-            {#            </tr>#}
             {% for course in courses %}
                 <tr>
                     <td><a href="/courses/{{ course.id }}">{{ course.name }}</a></td>
                     <td>{{ course.teacher_name }}</td>
                     <td>{{ course.count_user }}</td>
-                    {#                    <td></td>#}
                     {#                    <td></td>#}
                     {#                    <td></td>#}
                     {#                    <td></td>#}
