@@ -6,7 +6,12 @@ from users.models import User
 
 def get_groups(request):
     sql = "select mdl_groups.id as id, " \
-          "       mdl_groups.name as name " \
+          "       mdl_groups.name as name, " \
+          "(select count(*) " \
+          "        from mdl_user as user, " \
+          "             mdl_groups_members as groups_members " \
+          "        where groups_members.userid = user.id " \
+          "          and groups_members.groupid = mdl_groups.id) as count_users " \
           "from mdl_groups"
     groups = Group.objects.raw(sql)
     return render(request, 'final_grade.html', locals())
