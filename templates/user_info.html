@@ -9,7 +9,7 @@
             <tr>
                 <th>№</th>
                 <th scope="col">Курс</th>
-                {#                <th scope="col">Роль</th>#}
+                <th scope="col">Роль</th>
                 {#                <th scope="col">Последний доступ</th>#}
                 {#                <th scope="col">Итоговая оценка</th>#}
                 {#                <th scope="col">Просмотры</th>#}
@@ -23,7 +23,7 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ course.name }}</td>
-                    {#                    <td>Студент</td>#}
+                    <td>{{ course.role }}</td>
                     {#                    <td>11.05.2020</td>#}
                     {#                    <td>67</td>#}
                     {#                    <td>20</td>#}
