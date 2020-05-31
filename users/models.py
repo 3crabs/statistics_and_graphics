@@ -11,3 +11,4 @@ class User(models.Model):
     def get_last_access(self):
         if self.last_access:
             return datetime.datetime.fromtimestamp(self.last_access)
+        return "-"
