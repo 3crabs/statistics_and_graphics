@@ -12,7 +12,9 @@
             <h3>Курс: {{ course.name }}</h3>
             <h3>Преподаватель: {{ course.teacher_name }}</h3>
         </div>
-        <form method="POST" id="finalgrade" action="/save"></form>
+        <form method="POST" id="finalgrade" action="/courses/{{ course.id }}/save">
+            {% csrf_token %}
+        </form>
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
@@ -32,7 +34,13 @@
                     <td>{{ forloop.counter }}</td>
                     <td><a href="/courses/{{ course.id }}/users/{{ user.id }}">{{ user.name }}</a></td>
                     <td>{{ user.get_last_access }}</td>
-                    <td><input value="{{ user.end_grade }}" name="{{ user.id }}" form="finalgrade" /></td>
+                    <td>
+                        {% if user.end_grade_id %}
+                            <input value="{{ user.get_end_grade }}" name="{{ user.end_grade_id }}" form="finalgrade" />
+                        {% else %}
+                            {{ user.get_end_grade }}
+                        {% endif %}
+                    </td>
                     {#                <td>80</td>#}
                     {#                <td>5 ч</td>#}
                     {#                <td>15/30</td>#}
