@@ -111,11 +111,18 @@ def get_course_one_user(request, course_id, user_id):
     course = User.objects.raw(sql)[0]
 
     sql = "select grade_items.id as id, " \
-          "       grade_items.itemname name " \
+          "       grade_items.itemname name, " \
+          "       grade_items.grademin grade_min, " \
+          "       grade_items.grademax grade_max, " \
+          "       grade_items.itemmodule as type, " \
+          "       grade_grades.rawgrade as grade " \
           "from mdl_course as course, " \
           "     mdl_user as user, " \
-          "     mdl_grade_items as grade_items " \
-          "where grade_items.courseid = course.id " \
+          "     mdl_grade_items as grade_items," \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course.id" \
+          "  and grade_grades.itemid = grade_items.id" \
+          "  and grade_grades.userid = user.id " \
           "  and course.id = " + str(course_id) + \
           "  and user.id = " + str(user_id)
     items = GradeItems.objects.raw(sql)
