@@ -5,6 +5,7 @@ class Course(models.Model):
     name = models.CharField(max_length=100)
     teacher_name = models.CharField(max_length=100)
     count_user = models.IntegerField()
+    last_access = models.IntegerField()
 
 
 class GradeItems(models.Model):
