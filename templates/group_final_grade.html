@@ -11,26 +11,18 @@
             <thead>
             <tr>
                 <th scope="col">ФИО/Курс</th>
-                <th scope="col">Курс 1</th>
-                <th scope="col">Курс 2</th>
+{#                <th scope="col">Курс 1</th>#}
+{#                <th scope="col">Курс 2</th>#}
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Иванов</td>
-                <td>20</td>
-                <td>70</td>
-            </tr>
-            <tr>
-                <td>Петров</td>
-                <td>20</td>
-                <td>70</td>
-            </tr>
-            <tr>
-                <td>Средний балл</td>
-                <td>20</td>
-                <td>70</td>
-            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.name }}</td>
+{#                    <td>20</td>#}
+{#                    <td>70</td>#}
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
