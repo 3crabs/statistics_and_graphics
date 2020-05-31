@@ -14,6 +14,7 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
+                <th>№</th>
                 <th scope="col">Элемент</th>
                 <th scope="col">Тип</th>
                 <th scope="col">Оценка</th>
@@ -25,6 +26,7 @@
             <tbody>
             {% for item in items %}
                 <tr>
+                    <td>{{ forloop.counter }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.get_type }}</td>
                     <td>{{ item.get_grade }}</td>
