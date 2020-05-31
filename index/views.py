@@ -116,7 +116,7 @@ def get_course_one_user(request, course_id, user_id):
           "       grade_items.grademin grade_min, " \
           "       grade_items.grademax grade_max, " \
           "       grade_items.itemmodule as type, " \
-          "       grade_grades.rawgrade as grade " \
+          "       grade_grades.finalgrade as grade " \
           "from mdl_course as course, " \
           "     mdl_user as user, " \
           "     mdl_grade_items as grade_items," \
@@ -124,7 +124,27 @@ def get_course_one_user(request, course_id, user_id):
           "where grade_items.courseid = course.id" \
           "  and grade_grades.itemid = grade_items.id" \
           "  and grade_grades.userid = user.id " \
+          "  and grade_items.itemtype = 'mod'" \
           "  and course.id = " + str(course_id) + \
           "  and user.id = " + str(user_id)
     items = GradeItems.objects.raw(sql)
+
+    sql = "select grade_items.id as id, " \
+          "       grade_items.itemname name, " \
+          "       grade_items.grademin grade_min, " \
+          "       grade_items.grademax grade_max, " \
+          "       grade_items.itemmodule as type, " \
+          "       grade_grades.finalgrade as grade " \
+          "from mdl_course as course, " \
+          "     mdl_user as user, " \
+          "     mdl_grade_items as grade_items," \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course.id" \
+          "  and grade_grades.itemid = grade_items.id" \
+          "  and grade_grades.userid = user.id " \
+          "  and grade_items.itemtype = 'course'" \
+          "  and course.id = " + str(course_id) + \
+          "  and user.id = " + str(user_id)
+    end_grade = GradeItems.objects.raw(sql)[0]
+
     return render(request, 'student_info.html', locals())
