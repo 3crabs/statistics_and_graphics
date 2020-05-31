@@ -58,7 +58,18 @@ def get_one_course(request, course_id):
           "       user.firstname as name, " \
           "(select max(timeaccess) " \
           "        from mdl_user_lastaccess as user_lastaccess " \
-          "        where user_lastaccess.courseid = course.id) as last_access " \
+          "        where user_lastaccess.courseid = course.id) as last_access, " \
+          "(select grade_grades.finalgrade as grade " \
+          "from mdl_course as course, " \
+          "     mdl_user as user_1, " \
+          "     mdl_grade_items as grade_items, " \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course.id " \
+          "  and grade_grades.itemid = grade_items.id " \
+          "  and grade_grades.userid = user.id " \
+          "  and grade_items.itemtype = 'course' " \
+          "  and course.id = " + str(course_id) + "" \
+          "  and user_1.id = user.id) as end_grade " \
           "from mdl_user as user, " \
           "     mdl_role_assignments as role_assignments, " \
           "     mdl_context as context, " \
