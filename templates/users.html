@@ -14,7 +14,7 @@
             <thead>
             <tr>
                 <th scope="col">ФИО</th>
-                {#                <th scope="col">Последний доступ</th>#}
+                <th scope="col">Последний доступ</th>
                 {#                <th scope="col">Количество курсов</th>#}
                 {#                <th scope="col">Входы в систему</th>#}
                 {#                <th scope="col">Затраченное время</th>#}
@@ -26,7 +26,7 @@
             {% for user in users %}
                 <tr>
                     <td><a href="/users/{{ user.id }}">{{ user.name }}</a></td>
-{#                    <td>11.05.2020</td>#}
+                    <td>{{ user.get_last_access }}</td>
                     {#                    <td>3</td>#}
                     {#                    <td>20</td>#}
                     {#                    <td>9 ч</td>#}

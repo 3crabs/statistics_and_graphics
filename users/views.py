@@ -7,7 +7,10 @@ from users.models import User
 def get_users(request):
     name = request.GET.get("name", "")
     sql = "select user.id        as id, " \
-          "       user.firstname as name " \
+          "       user.firstname as name, " \
+          "(select max(timeaccess) " \
+          "from mdl_user_lastaccess as user_lastaccess " \
+          "where user_lastaccess.userid = user.id) as last_access " \
           "from mdl_user as user " \
           "where 1"
     if name:
