@@ -3,31 +3,33 @@
 {% block content %}
     <div class="container">
         <div id="chart_div"></div>
-        <h1 class="mx-0 my-3">{ Имя студента }</h1>
+        <h1 class="mx-0 my-3">{{ user.name }}</h1>
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
                 <th scope="col">Курс</th>
-                <th scope="col">Роль</th>
-                <th scope="col">Последний доступ</th>
-                <th scope="col">Итоговая оценка</th>
-                <th scope="col">Просмотры</th>
-                <th scope="col">Затраченное время</th>
-                <th scope="col">Выполнено элементов</th>
-                <th scope="col">Активность пользователя</th>
+                {#                <th scope="col">Роль</th>#}
+                {#                <th scope="col">Последний доступ</th>#}
+                {#                <th scope="col">Итоговая оценка</th>#}
+                {#                <th scope="col">Просмотры</th>#}
+                {#                <th scope="col">Затраченное время</th>#}
+                {#                <th scope="col">Выполнено элементов</th>#}
+                {#                <th scope="col">Активность пользователя</th>#}
             </tr>
             </thead>
             <tbody>
-            <tr onclick="document.location = '';">
-                <td>Курс 1</td>
-                <td>Студент</td>
-                <td>11.05.2020</td>
-                <td>67</td>
-                <td>20</td>
-                <td>9 ч</td>
-                <td>11</td>
-                <td>27 мин</td>
-            </tr>
+            {% for course in courses %}
+                <tr>
+                    <td>{{ course.name }}</td>
+{#                    <td>Студент</td>#}
+{#                    <td>11.05.2020</td>#}
+{#                    <td>67</td>#}
+{#                    <td>20</td>#}
+{#                    <td>9 ч</td>#}
+{#                    <td>11</td>#}
+{#                    <td>27 мин</td>#}
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>

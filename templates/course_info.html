@@ -12,24 +12,26 @@
             <thead>
             <tr>
                 <th scope="col">ФИО студента</th>
-                <th scope="col">Последний доступ</th>
-                <th scope="col">Итоговая оценка</th>
-                <th scope="col">Просмотры</th>
-                <th scope="col">Затраченное время</th>
-                <th scope="col">Выполнено элементов</th>
-                <th scope="col">Коэфициент вовлеченности</th>
+                {#                <th scope="col">Последний доступ</th>#}
+                {#                <th scope="col">Итоговая оценка</th>#}
+                {#                <th scope="col">Просмотры</th>#}
+                {#                <th scope="col">Затраченное время</th>#}
+                {#                <th scope="col">Выполнено элементов</th>#}
+                {#                <th scope="col">Коэфициент вовлеченности</th>#}
             </tr>
             </thead>
             <tbody>
-            <tr onclick="document.location = '';">
-                <td><a href="user_info.html">Иванов</a></td>
-                <td>11.05.2020</td>
-                <td>60</td>
-                <td>80</td>
-                <td>5 ч</td>
-                <td>15/30</td>
-                <td>55%</td>
-            </tr>
+            {% for user in users %}
+                <tr>
+                    <td><a href="/courses/{{ course.id }}/users/{{ user.id }}">{{ user.name }}</a></td>
+                    {#                <td>11.05.2020</td>#}
+                    {#                <td>60</td>#}
+                    {#                <td>80</td>#}
+                    {#                <td>5 ч</td>#}
+                    {#                <td>15/30</td>#}
+                    {#                <td>55%</td>#}
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
