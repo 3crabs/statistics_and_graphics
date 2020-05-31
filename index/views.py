@@ -69,16 +69,16 @@ def get_one_course(request, course_id):
           "  and grade_grades.userid = user.id " \
           "  and grade_items.itemtype = 'course' " \
           "  and course.id = " + str(course_id) + "" \
-          "  and user_1.id = user.id) as end_grade " \
-          "from mdl_user as user, " \
-          "     mdl_role_assignments as role_assignments, " \
-          "     mdl_context as context, " \
-          "     mdl_course as course " \
-          "where role_assignments.userid = user.id " \
-          "  and role_assignments.roleid = 5 " \
-          "  and role_assignments.contextid = context.id " \
-          "  and context.instanceid = course.id " \
-          "  and course.id = " + course_id
+                                                  "  and user_1.id = user.id) as end_grade " \
+                                                  "from mdl_user as user, " \
+                                                  "     mdl_role_assignments as role_assignments, " \
+                                                  "     mdl_context as context, " \
+                                                  "     mdl_course as course " \
+                                                  "where role_assignments.userid = user.id " \
+                                                  "  and role_assignments.roleid = 5 " \
+                                                  "  and role_assignments.contextid = context.id " \
+                                                  "  and context.instanceid = course.id " \
+                                                  "  and course.id = " + course_id
     users = User.objects.raw(sql)
     return render(request, 'course_info.html', locals())
 
@@ -156,6 +156,8 @@ def get_course_one_user(request, course_id, user_id):
           "  and grade_items.itemtype = 'course'" \
           "  and course.id = " + str(course_id) + \
           "  and user.id = " + str(user_id)
-    end_grade = GradeItems.objects.raw(sql)[0]
+    end_grade = GradeItems.objects.raw(sql)
+    if end_grade:
+        end_grade = end_grade[0]
 
     return render(request, 'student_info.html', locals())
