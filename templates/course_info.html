@@ -26,10 +26,6 @@
                 <th scope="col">Последний доступ</th>
                 <th scope="col">Итоговая оценка</th>
                 <th scope="col">Максимальная оценка</th>
-                {#                <th scope="col">Просмотры</th>#}
-                {#                <th scope="col">Затраченное время</th>#}
-                {#                <th scope="col">Выполнено элементов</th>#}
-                {#                <th scope="col">Коэфициент вовлеченности</th>#}
             </tr>
             </thead>
             <tbody>
@@ -46,9 +42,6 @@
                         {% endif %}
                     </td>
                     <td>{{ user.get_end_grade_max }}</td>
-                    {#                <td>5 ч</td>#}
-                    {#                <td>15/30</td>#}
-                    {#                <td>55%</td>#}
                 </tr>
             {% endfor %}
             </tbody>

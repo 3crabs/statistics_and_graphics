@@ -66,3 +66,26 @@ def create_xls_info_course(teacher_name: str, course_name: str, items: []):
     path = "index/xml/course_info.xlsx"
     book.save(path)
     return path
+
+
+def create_xls_group(group_name, header, users):
+    book = xlwt.Workbook(encoding="utf-8")
+    sheet = book.add_sheet("Группа")
+    row = 0
+    sheet.write(row, 0, "Итоговая успеваемость группы")
+    sheet.write(row, 1, group_name)
+    row += 1
+    sheet.write(row, 0, "№")
+    sheet.write(row, 1, "ФИО/Курс")
+    for i in range(len(header.courses)):
+        sheet.write(row, i + 2, header.courses[i].name)
+    for i, val in enumerate(users):
+        row += 1
+        sheet.write(row, 0, i + 1)
+        sheet.write(row, 1, val.name)
+        for i in range(len(val.courses)):
+            sheet.write(row, i + 2, val.courses[i].get_final_grade())
+
+    path = "index/xml/group.xlsx"
+    book.save(path)
+    return path
