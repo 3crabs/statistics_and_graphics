@@ -15,8 +15,8 @@
             <tr>
                 <th>№</th>
                 <th scope="col">ФИО</th>
-                <th scope="col">Последний доступ</th>
                 <th scope="col">Количество курсов</th>
+                <th scope="col">Последний доступ</th>
                 {#                <th scope="col">Затраченное время</th>#}
                 {#                <th scope="col">Просмотры</th>#}
                 {#                <th scope="col">Среднее время работы</th>#}
@@ -27,8 +27,8 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td><a href="/users/{{ user.id }}">{{ user.name }}</a></td>
-                    <td>{{ user.get_last_access }}</td>
                     <td>{{ user.count_course }}</td>
+                    <td>{{ user.get_last_access }}</td>
                     {#                    <td>9 ч</td>#}
                     {#                    <td>110</td>#}
                     {#                    <td>27 мин</td>#}

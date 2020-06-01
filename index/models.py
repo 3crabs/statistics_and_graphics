@@ -10,6 +10,7 @@ class Course(models.Model):
     last_access = models.IntegerField()
     avg_final_grade = models.CharField(max_length=100)
     final_grade = models.CharField(max_length=100)
+    count_views = models.IntegerField()
 
     def get_last_access(self):
         if self.last_access:

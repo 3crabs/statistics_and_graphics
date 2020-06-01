@@ -29,7 +29,13 @@ def get_courses(request):
           "     mdl_grade_items as grade_items " \
           "where grade_grades.itemid = grade_items.id " \
           "  and grade_items.itemtype = 'course' " \
-          "and grade_items.courseid = course.id) as avg_final_grade  " \
+          "and grade_items.courseid = course.id) as avg_final_grade,  " \
+          "" \
+          "(select count(*) " \
+          "from mdl_logstore_standard_log as log " \
+          "where log.action = 'viewed' " \
+          "  and log.target = 'course' " \
+          "  and log.courseid = course.id) as count_views " \
           "" \
           "from mdl_user as user, " \
           "     mdl_role_assignments as role_assignments, " \
