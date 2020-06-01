@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 from index.models import Course, GradeItems
-from index.xml_creator import create_xls_grade
+from index.xml_creator import create_xls_grade, create_xls_info_course
 from users.models import User
 
 
@@ -389,5 +389,90 @@ def download_course_one_user(request, course_id, user_id):
 
     file = open(path, 'rb')
     response = HttpResponse(file, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=table.xlsx'
+    response['Content-Disposition'] = 'attachment; filename=user_results.xlsx'
+    return response
+
+
+def download_one_course(request, course_id):
+    sql = "select course.id  as id, " \
+          "       course.shortname as name, " \
+          "       user.firstname   as teacher_name, " \
+          "" \
+          "(select count(*)" \
+          "    from mdl_user as user," \
+          "         mdl_role_assignments as role_assignments, " \
+          "         mdl_context as context " \
+          "    where role_assignments.userid = user.id " \
+          "      and role_assignments.roleid = 5 " \
+          "      and role_assignments.contextid = context.id " \
+          "      and context.instanceid = course.id)    as count_user " \
+          "" \
+          "from mdl_user as user, " \
+          "     mdl_role_assignments as role_assignments, " \
+          "     mdl_context as context, " \
+          "     mdl_course as course " \
+          "where role_assignments.userid = user.id " \
+          "  and role_assignments.roleid = 3 " \
+          "  and role_assignments.contextid = context.id " \
+          "  and context.instanceid = course.id " \
+          "  and course.id = " + course_id
+    course = User.objects.raw(sql)[0]
+    sql = "select user.id        as id, " \
+          "       user.firstname as name, " \
+          "(select max(timeaccess) " \
+          "        from mdl_user_lastaccess as user_lastaccess " \
+          "        where user_lastaccess.courseid = course.id) as last_access, " \
+          "" \
+          "(select grade_grades.finalgrade as grade " \
+          "from mdl_course as course, " \
+          "     mdl_user as user_1, " \
+          "     mdl_grade_items as grade_items, " \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course.id " \
+          "  and grade_grades.itemid = grade_items.id " \
+          "  and grade_grades.userid = user.id " \
+          "  and grade_items.itemtype = 'course' " \
+          "  and course.id = " + str(course_id) + \
+          "  and user_1.id = user.id) as end_grade, " \
+          "" \
+          "(select grade_grades.rawgrademax as grade " \
+          "from mdl_course as course, " \
+          "     mdl_user as user_1, " \
+          "     mdl_grade_items as grade_items, " \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course.id " \
+          "  and grade_grades.itemid = grade_items.id " \
+          "  and grade_grades.userid = user.id " \
+          "  and grade_items.itemtype = 'course' " \
+          "  and course.id = " + str(course_id) + \
+          "  and user_1.id = user.id) as end_grade_max, " \
+          "" \
+          "(select grade_grades.id " \
+          "from mdl_course as course, " \
+          "     mdl_user as user_1, " \
+          "     mdl_grade_items as grade_items, " \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course.id " \
+          "  and grade_grades.itemid = grade_items.id " \
+          "  and grade_grades.userid = user.id " \
+          "  and grade_items.itemtype = 'course' " \
+          "  and course.id = " + str(course_id) + \
+          "  and user_1.id = user.id) as end_grade_id " \
+          "" \
+          "from mdl_user as user, " \
+          "     mdl_role_assignments as role_assignments, " \
+          "     mdl_context as context, " \
+          "     mdl_course as course " \
+          "where role_assignments.userid = user.id " \
+          "  and role_assignments.roleid = 5 " \
+          "  and role_assignments.contextid = context.id " \
+          "  and context.instanceid = course.id " \
+          "  and course.id = " + course_id
+    users = User.objects.raw(sql)
+
+    path = create_xls_info_course(course.name, course.teacher_name, users)
+
+    file = open(path, 'rb')
+    response = HttpResponse(file, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=course_info.xlsx'
     return response
