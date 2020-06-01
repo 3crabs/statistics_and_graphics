@@ -8,6 +8,7 @@ class User(models.Model):
     last_access = models.IntegerField()
     end_grade_id = models.IntegerField()
     end_grade = models.IntegerField()
+    end_grade_max = models.IntegerField()
     count_course = models.IntegerField()
 
     def get_end_grade(self):

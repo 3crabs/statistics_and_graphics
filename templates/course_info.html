@@ -36,7 +36,7 @@
                     <td>{{ user.get_last_access }}</td>
                     <td>
                         {% if user.end_grade_id %}
-                            <input value="{{ user.get_end_grade }}" name="{{ user.end_grade_id }}" form="finalgrade" />
+                            <input value="{{ user.get_end_grade }}" name="{{ user.end_grade_id }}" form="finalgrade" />/{{ user.end_grade_max }}
                         {% else %}
                             {{ user.get_end_grade }}
                         {% endif %}

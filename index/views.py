@@ -91,6 +91,18 @@ def get_one_course(request, course_id):
           "  and course.id = " + str(course_id) + \
           "  and user_1.id = user.id) as end_grade, " \
           "" \
+          "(select grade_grades.rawgrademax as grade " \
+          "from mdl_course as course, " \
+          "     mdl_user as user_1, " \
+          "     mdl_grade_items as grade_items, " \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course.id " \
+          "  and grade_grades.itemid = grade_items.id " \
+          "  and grade_grades.userid = user.id " \
+          "  and grade_items.itemtype = 'course' " \
+          "  and course.id = " + str(course_id) + \
+          "  and user_1.id = user.id) as end_grade_max, " \
+          "" \
           "(select grade_grades.id " \
           "from mdl_course as course, " \
           "     mdl_user as user_1, " \
@@ -184,6 +196,7 @@ def get_course_one_user(request, course_id, user_id):
           "       grade_items.grademin grade_min, " \
           "       grade_items.grademax grade_max, " \
           "       grade_items.itemmodule as type, " \
+          "       grade_grades.finalgrade as grade," \
           "       grade_grades.finalgrade as grade " \
           "from mdl_course as course, " \
           "     mdl_user as user, " \

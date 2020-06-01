@@ -27,6 +27,7 @@ class Course(models.Model):
             return self.final_grade
         return "-"
 
+
 class GradeItems(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
