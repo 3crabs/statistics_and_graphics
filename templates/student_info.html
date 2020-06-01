@@ -22,7 +22,7 @@
                 <th scope="col">Элемент</th>
                 <th scope="col">Тип</th>
                 <th scope="col">Оценка</th>
-                {#                <th scope="col">Дата выполнения</th>#}
+                <th scope="col">Максимальная оценка</th>
                 <th scope="col">Оценил</th>
                 {#                <th scope="col">Количество попыток</th>#}
             </tr>
@@ -33,8 +33,8 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.get_type }}</td>
-                    <td><input value="{{ item.get_grade }}" name="{{ item.grade_id }}" form="grade"/>/{{ item.grade_max }}</td>
-                    {#                    <td>03.03.2020</td>#}
+                    <td><input value="{{ item.get_grade }}" name="{{ item.grade_id }}" form="grade"/></td>
+                    <td>{{ item.grade_max }}</td>
                     <td>{{ item.get_user_modified }}</td>
                     {#                    <td>1</td>#}
                 </tr>
