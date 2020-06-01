@@ -38,7 +38,13 @@ def get_one_user(request, user_id):
     user = User.objects.raw(sql)[0]
     sql = "select course.id        as id, " \
           "       course.shortname as name," \
-          "       role.shortname as role " \
+          "       role.shortname as role, " \
+          "" \
+          "(select user_lastaccess.timeaccess " \
+          "from mdl_user_lastaccess as user_lastaccess " \
+          "where user_lastaccess.courseid = course.id " \
+          "  and user_lastaccess.userid = user.id) as last_access " \
+          "" \
           "from mdl_user as user, " \
           "     mdl_role_assignments as role_assignments, " \
           "     mdl_context as context, " \

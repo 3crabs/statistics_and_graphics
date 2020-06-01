@@ -10,7 +10,7 @@
                 <th>№</th>
                 <th scope="col">Курс</th>
                 <th scope="col">Роль</th>
-                {#                <th scope="col">Последний доступ</th>#}
+                <th scope="col">Последний доступ</th>
                 {#                <th scope="col">Итоговая оценка</th>#}
                 {#                <th scope="col">Просмотры</th>#}
                 {#                <th scope="col">Затраченное время</th>#}
@@ -24,7 +24,7 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ course.name }}</td>
                     <td>{{ course.role }}</td>
-                    {#                    <td>{{ course.last_access }}</td>#}
+                    <td>{{ course.get_last_access }}</td>
                     {#                    <td>67</td>#}
                     {#                    <td>20</td>#}
                     {#                    <td>9 ч</td>#}
