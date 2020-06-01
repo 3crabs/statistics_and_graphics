@@ -12,10 +12,6 @@
                 <th scope="col">Роль</th>
                 <th scope="col">Последний доступ</th>
                 <th scope="col">Итоговая оценка</th>
-                {#                <th scope="col">Просмотры</th>#}
-                {#                <th scope="col">Затраченное время</th>#}
-                {#                <th scope="col">Выполнено элементов</th>#}
-                {#                <th scope="col">Активность пользователя</th>#}
             </tr>
             </thead>
             <tbody>
@@ -26,10 +22,6 @@
                     <td>{{ course.role }}</td>
                     <td>{{ course.get_last_access }}</td>
                     <td>{{ course.get_final_grade }}</td>
-                    {#                    <td>20</td>#}
-                    {#                    <td>9 ч</td>#}
-                    {#                    <td>11</td>#}
-                    {#                    <td>27 мин</td>#}
                 </tr>
             {% endfor %}
             </tbody>
