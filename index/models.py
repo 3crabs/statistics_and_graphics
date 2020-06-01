@@ -34,6 +34,7 @@ class GradeItems(models.Model):
     grade_max = models.IntegerField()
     grade = models.IntegerField()
     grade_id = models.IntegerField()
+    user_modified = models.CharField(max_length=100)
 
     def get_type(self):
         if self.type == 'quiz':
@@ -49,3 +50,8 @@ class GradeItems(models.Model):
         if self.grade:
             return str(self.grade)
         return str(self.grade_min)
+
+    def get_user_modified(self):
+        if self.user_modified:
+            return str(self.user_modified)
+        return 'Система'

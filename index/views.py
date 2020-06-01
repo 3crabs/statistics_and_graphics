@@ -160,8 +160,13 @@ def get_course_one_user(request, course_id, user_id):
           "       grade_items.grademin grade_min, " \
           "       grade_items.grademax grade_max, " \
           "       grade_items.itemmodule as type, " \
-          "       grade_grades.finalgrade as grade," \
-          "       grade_grades.id as grade_id " \
+          "       grade_grades.finalgrade as grade, " \
+          "       grade_grades.id as grade_id, " \
+          "" \
+          "(select user_1.firstname " \
+          "        from mdl_user as user_1 " \
+          "        where grade_grades.usermodified = user_1.id) as user_modified " \
+          "" \
           "from mdl_course as course, " \
           "     mdl_user as user, " \
           "     mdl_grade_items as grade_items," \
