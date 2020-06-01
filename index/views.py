@@ -1,8 +1,9 @@
 from django.db import connection
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 from index.models import Course, GradeItems
+from index.xml_creator import create_xls_grade
 from users.models import User
 
 
@@ -298,3 +299,95 @@ def save_course_one_user(request, course_id, user_id):
                 sql = "update mdl_grade_grades set finalgrade = " + str(new_value) + " where id = " + str(key)
                 cursor.execute(sql)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def download_course_one_user(request, course_id, user_id):
+    sql = "select user.id        as id, " \
+          "       user.firstname as name " \
+          "from mdl_user as user, " \
+          "     mdl_role_assignments as role_assignments, " \
+          "     mdl_context as context, " \
+          "     mdl_course as course " \
+          "where role_assignments.userid = user.id " \
+          "  and role_assignments.roleid = 5 " \
+          "  and role_assignments.contextid = context.id " \
+          "  and context.instanceid = course.id " \
+          "  and course.id = " + course_id + \
+          "  and user.id = " + user_id
+    user = User.objects.raw(sql)[0]
+
+    sql = "select course.id  as id, " \
+          "       course.shortname as name, " \
+          "       user.firstname   as teacher_name, " \
+          "" \
+          "(select count(*)" \
+          "    from mdl_user as user," \
+          "         mdl_role_assignments as role_assignments, " \
+          "         mdl_context as context " \
+          "    where role_assignments.userid = user.id " \
+          "      and role_assignments.roleid = 5 " \
+          "      and role_assignments.contextid = context.id " \
+          "      and context.instanceid = course.id)    as count_user " \
+          "" \
+          "from mdl_user as user, " \
+          "     mdl_role_assignments as role_assignments, " \
+          "     mdl_context as context, " \
+          "     mdl_course as course " \
+          "where role_assignments.userid = user.id " \
+          "  and role_assignments.roleid = 3 " \
+          "  and role_assignments.contextid = context.id " \
+          "  and context.instanceid = course.id " \
+          "  and course.id = " + course_id
+    course = User.objects.raw(sql)[0]
+
+    sql = "select grade_items.id as id, " \
+          "       grade_items.itemname name, " \
+          "       grade_items.grademin grade_min, " \
+          "       grade_items.grademax grade_max, " \
+          "       grade_items.itemmodule as type, " \
+          "       grade_grades.finalgrade as grade, " \
+          "       grade_grades.id as grade_id, " \
+          "" \
+          "(select user_1.firstname " \
+          "        from mdl_user as user_1 " \
+          "        where grade_grades.usermodified = user_1.id) as user_modified " \
+          "" \
+          "from mdl_course as course, " \
+          "     mdl_user as user, " \
+          "     mdl_grade_items as grade_items," \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course.id" \
+          "  and grade_grades.itemid = grade_items.id" \
+          "  and grade_grades.userid = user.id " \
+          "  and grade_items.itemtype = 'mod'" \
+          "  and course.id = " + str(course_id) + \
+          "  and user.id = " + str(user_id)
+    items = GradeItems.objects.raw(sql)
+
+    sql = "select grade_items.id as id, " \
+          "       grade_items.itemname name, " \
+          "       grade_items.grademin grade_min, " \
+          "       grade_items.grademax grade_max, " \
+          "       grade_items.itemmodule as type, " \
+          "       grade_grades.finalgrade as grade," \
+          "       grade_grades.finalgrade as grade " \
+          "from mdl_course as course, " \
+          "     mdl_user as user, " \
+          "     mdl_grade_items as grade_items," \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course.id" \
+          "  and grade_grades.itemid = grade_items.id" \
+          "  and grade_grades.userid = user.id " \
+          "  and grade_items.itemtype = 'course'" \
+          "  and course.id = " + str(course_id) + \
+          "  and user.id = " + str(user_id)
+    end_grade = GradeItems.objects.raw(sql)
+    if end_grade:
+        end_grade = end_grade[0]
+
+    path = create_xls_grade(user.name, course.name, items, end_grade.get_grade())
+
+    file = open(path, 'rb')
+    response = HttpResponse(file, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=table.xlsx'
+    return response
