@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 
@@ -6,6 +8,11 @@ class Course(models.Model):
     teacher_name = models.CharField(max_length=100)
     count_user = models.IntegerField()
     last_access = models.IntegerField()
+
+    def get_last_access(self):
+        if self.last_access:
+            return datetime.datetime.fromtimestamp(self.last_access)
+        return "-"
 
 
 class GradeItems(models.Model):

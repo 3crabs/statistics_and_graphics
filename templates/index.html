@@ -11,6 +11,7 @@
                 <th scope="col">Курс</th>
                 <th scope="col">Преподаватель</th>
                 <th scope="col">Количество участников</th>
+                <th scope="col">Последний доступ</th>
                 {#                <th scope="col">Средний балл</th>#}
                 {#                <th scope="col">Входы на курс</th>#}
                 {#                <th scope="col">Время использования</th>#}
@@ -25,6 +26,7 @@
                     <td><a href="/courses/{{ course.id }}">{{ course.name }}</a></td>
                     <td>{{ course.teacher_name }}</td>
                     <td>{{ course.count_user }}</td>
+                    <td>{{ course.get_last_access }}</td>
                     {#                    <td></td>#}
                     {#                    <td></td>#}
                     {#                    <td></td>#}

@@ -18,7 +18,11 @@ def get_courses(request):
           "    where role_assignments.userid = user.id " \
           "      and role_assignments.roleid = 5 " \
           "      and role_assignments.contextid = context.id " \
-          "      and context.instanceid = course.id)    as count_user " \
+          "      and context.instanceid = course.id)    as count_user, " \
+          "" \
+          "(select max(user_lastaccess.timeaccess) " \
+          "from mdl_user_lastaccess as user_lastaccess " \
+          "where user_lastaccess.courseid = course.id) last_access " \
           "" \
           "from mdl_user as user, " \
           "     mdl_role_assignments as role_assignments, " \
