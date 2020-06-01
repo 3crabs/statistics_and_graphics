@@ -16,6 +16,11 @@ class User(models.Model):
             return self.end_grade
         return "-"
 
+    def get_end_grade_max(self):
+        if self.end_grade_max:
+            return self.end_grade_max
+        return "-"
+
     def get_last_access(self):
         if self.last_access:
             return datetime.datetime.fromtimestamp(self.last_access)
