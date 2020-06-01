@@ -37,16 +37,16 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Курс', 'Количество участников', 'Средний балл', 'Просмотры'],
+                ['Курс', 'Просмотры'],
                 {% for cours in courses %}
-                    ['{{ cours.name }}', {{ cours.count_user }}, {{ cours.get_stat_avg_final_grade }}, {{ cours.count_views }}],
+                    ['{{ cours.name }}', {{ cours.count_views }}],
                 {% endfor %}
             ]);
 
             var options = {
                 chart: {
                     title: 'Статистика по курсам',
-                    subtitle: 'Количество участников, Средний балл, Просмотры по курсам',
+                    subtitle: 'Просмотры по курсам',
                 }
             };
 
