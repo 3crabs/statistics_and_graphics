@@ -8,6 +8,17 @@ def get_users(request):
     name = request.GET.get("name", "")
     sql = "select user.id        as id, " \
           "       user.firstname as name, " \
+          "" \
+          "(select count(*) " \
+          "from mdl_user as user_1, " \
+          "     mdl_course as cource, " \
+          "     mdl_role_assignments as role_assignments, " \
+          "     mdl_context as context " \
+          "where role_assignments.userid = user_1.id " \
+          "  and role_assignments.contextid = context.id " \
+          "  and context.instanceid = cource.id " \
+          "  and user_1.id = user.id) as count_course," \
+          "" \
           "(select max(timeaccess) " \
           "from mdl_user_lastaccess as user_lastaccess " \
           "where user_lastaccess.userid = user.id) as last_access " \
