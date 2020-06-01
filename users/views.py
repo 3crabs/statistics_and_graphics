@@ -77,7 +77,32 @@ def get_one_user(request, user_id):
           "where log.action = 'viewed' " \
           "  and log.target like 'course' " \
           "  and log.userid = user.id " \
-          "  and log.courseid = course.id) as count_in " \
+          "  and log.courseid = course.id) as count_in, " \
+          "" \
+          "(select count(*) " \
+          "from mdl_course as course_1, " \
+          "     mdl_user as user_1, " \
+          "     mdl_grade_items as grade_items," \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course_1.id " \
+          "  and grade_grades.itemid = grade_items.id " \
+          "  and grade_grades.userid = user_1.id " \
+          "  and grade_items.itemtype = 'mod'" \
+          "  and course_1.id = course.id " \
+          "  and grade_grades.finalgrade != 0 " + \
+          "  and user_1.id = " + str(user_id) + ") as count_done, " \
+          "" \
+          "(select count(*) " \
+          "from mdl_course as course_1, " \
+          "     mdl_user as user_1, " \
+          "     mdl_grade_items as grade_items," \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course_1.id " \
+          "  and grade_grades.itemid = grade_items.id " \
+          "  and grade_grades.userid = user_1.id " \
+          "  and grade_items.itemtype = 'mod'" \
+          "  and course_1.id = course.id " + \
+          "  and user_1.id = " + str(user_id) + ") as count_all " \
           "" \
           "from mdl_user as user, " \
           "     mdl_role_assignments as role_assignments, " \
@@ -90,4 +115,5 @@ def get_one_user(request, user_id):
           "  and role.id = role_assignments.roleid " \
           "  and user.id = " + user_id
     courses = Course.objects.raw(sql)
+
     return render(request, 'user_info.html', locals())

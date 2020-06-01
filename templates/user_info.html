@@ -14,17 +14,20 @@
                 <th scope="col">Итоговая оценка</th>
                 <th scope="col">Просмотры</th>
                 <th scope="col">Сделано</th>
+                <th scope="col">Коэффициент</th>
             </tr>
             </thead>
             <tbody>
             {% for course in courses %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ course.name }}</td>
+                    <td><a href="/courses/{{ course.id }}/users/{{ user_id }}">{{ course.name }}</a></td>
                     <td>{{ course.role }}</td>
                     <td>{{ course.get_last_access }}</td>
                     <td>{{ course.get_final_grade }}</td>
                     <td>{{ course.get_count_views }}</td>
+                    <td>{{ course.get_count_done }}</td>
+                    <td>{{ course.get_done_coef }}</td>
                 </tr>
             {% endfor %}
             </tbody>
