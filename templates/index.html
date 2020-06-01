@@ -13,7 +13,9 @@
                 <th scope="col">Количество участников</th>
                 <th scope="col">Последний доступ</th>
                 <th scope="col">Средний балл</th>
+                <th scope="col">Входы</th>
                 <th scope="col">Просмотры</th>
+                <th scope="col">Коэффициент</th>
             </tr>
             </thead>
             <tbody>
@@ -25,7 +27,9 @@
                     <td>{{ course.count_user }}</td>
                     <td>{{ course.get_last_access }}</td>
                     <td>{{ course.get_avg_final_grade }}</td>
+                    <td>{{ course.get_count_in }}</td>
                     <td>{{ course.count_views }}</td>
+                    <td>{{ course.get_coef }}</td>
                 </tr>
             {% endfor %}
             </tbody>

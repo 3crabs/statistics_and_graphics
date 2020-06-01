@@ -36,8 +36,14 @@ def get_courses(request):
           "(select count(*) " \
           "from mdl_logstore_standard_log as log " \
           "where log.action = 'viewed' " \
+          "  and log.target like '%%course%%' " \
+          "  and log.courseid = course.id) as count_views, " \
+          "" \
+          "(select count(*) " \
+          "from mdl_logstore_standard_log as log " \
+          "where log.action = 'viewed' " \
           "  and log.target = 'course' " \
-          "  and log.courseid = course.id) as count_views " \
+          "  and log.courseid = course.id) as count_in " \
           "" \
           "from mdl_user as user, " \
           "     mdl_role_assignments as role_assignments, " \

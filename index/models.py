@@ -11,7 +11,18 @@ class Course(models.Model):
     last_access = models.IntegerField()
     avg_final_grade = models.CharField(max_length=100)
     final_grade = models.CharField(max_length=100)
+    count_in = models.IntegerField()
     count_views = models.IntegerField()
+
+    def get_count_in(self):
+        if self.count_in:
+            return self.count_in
+        return 0
+
+    def get_coef(self):
+        if self.count_in and self.count_views:
+            return self.count_views/self.count_in
+        return "-"
 
     def get_last_access(self):
         if self.last_access:
