@@ -8,12 +8,17 @@ class Course(models.Model):
     teacher_name = models.CharField(max_length=100)
     count_user = models.IntegerField()
     last_access = models.IntegerField()
+    avg_final_grade = models.CharField(max_length=100)
 
     def get_last_access(self):
         if self.last_access:
             return datetime.datetime.fromtimestamp(self.last_access)
         return "-"
 
+    def get_avg_final_grade(self):
+        if self.avg_final_grade:
+            return self.avg_final_grade
+        return "-"
 
 class GradeItems(models.Model):
     name = models.CharField(max_length=100)

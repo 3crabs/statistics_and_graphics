@@ -22,7 +22,14 @@ def get_courses(request):
           "" \
           "(select max(user_lastaccess.timeaccess) " \
           "from mdl_user_lastaccess as user_lastaccess " \
-          "where user_lastaccess.courseid = course.id) last_access " \
+          "where user_lastaccess.courseid = course.id) last_access, " \
+          "" \
+          "(select avg(grade_grades.finalgrade) " \
+          "from mdl_grade_grades as grade_grades, " \
+          "     mdl_grade_items as grade_items " \
+          "where grade_grades.itemid = grade_items.id " \
+          "  and grade_items.itemtype = 'course' " \
+          "and grade_items.courseid = course.id) as avg_final_grade  " \
           "" \
           "from mdl_user as user, " \
           "     mdl_role_assignments as role_assignments, " \
