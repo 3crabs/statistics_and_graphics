@@ -28,7 +28,7 @@ def get_one_group(request, group_id):
     group = Group.objects.raw(sql)[0]
 
     sql = "select user.id as id, " \
-          "       user.firstname as name " \
+          "       CONCAT(user.lastname, ' ', user.firstname) as name " \
           "from mdl_user as user, " \
           "     mdl_cohort_members as cohort_members " \
           "where cohort_members.userid = user.id " \

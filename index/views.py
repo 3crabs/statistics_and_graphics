@@ -10,7 +10,7 @@ from users.models import User
 def get_courses(request):
     sql = "select course.id  as id, " \
           "       course.shortname as name, " \
-          "       user.firstname   as teacher_name," \
+          "       CONCAT(user.lastname, ' ', user.firstname)   as teacher_name," \
           "       user.id   as teacher_id, " \
           "" \
           "(select count(*)" \
@@ -60,7 +60,7 @@ def get_courses(request):
 def get_one_course(request, course_id):
     sql = "select course.id  as id, " \
           "       course.shortname as name, " \
-          "       user.firstname   as teacher_name, " \
+          "       CONCAT(user.lastname, ' ', user.firstname)   as teacher_name, " \
           "" \
           "(select count(*)" \
           "    from mdl_user as user," \
@@ -82,7 +82,7 @@ def get_one_course(request, course_id):
           "  and course.id = " + course_id
     course = User.objects.raw(sql)[0]
     sql = "select user.id        as id, " \
-          "       user.firstname as name, " \
+          "       CONCAT(user.lastname, ' ', user.firstname) as name, " \
           "(select timeaccess " \
           "        from mdl_user_lastaccess as user_lastaccess " \
           "        where user_lastaccess.courseid = course.id" \
@@ -139,7 +139,7 @@ def get_one_course(request, course_id):
 
 def get_course_one_user(request, course_id, user_id):
     sql = "select user.id        as id, " \
-          "       user.firstname as name " \
+          "       CONCAT(user.lastname, ' ', user.firstname) as name " \
           "from mdl_user as user, " \
           "     mdl_role_assignments as role_assignments, " \
           "     mdl_context as context, " \

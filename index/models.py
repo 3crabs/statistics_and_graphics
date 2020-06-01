@@ -19,9 +19,14 @@ class Course(models.Model):
             return self.count_in
         return 0
 
+    def get_count_views(self):
+        if self.count_views:
+            return self.count_views
+        return 0
+
     def get_coef(self):
         if self.count_in and self.count_views:
-            return self.count_views/self.count_in
+            return self.count_views / self.count_in
         return "-"
 
     def get_last_access(self):

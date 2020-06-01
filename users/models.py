@@ -11,6 +11,23 @@ class User(models.Model):
     end_grade_max = models.IntegerField()
     count_course = models.IntegerField()
     courses = []
+    count_in = models.IntegerField()
+    count_views = models.IntegerField()
+
+    def get_count_in(self):
+        if self.count_in:
+            return self.count_in
+        return 0
+
+    def get_count_views(self):
+        if self.count_views:
+            return self.count_views
+        return 0
+
+    def get_coef(self):
+        if self.count_in and self.count_views:
+            return self.count_views / self.count_in
+        return "-"
 
     def get_end_grade(self):
         if self.end_grade:
