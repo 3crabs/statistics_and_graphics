@@ -45,26 +45,26 @@
         <h4>Итоговая {{ end_grade.get_grade }}/{{ end_grade.grade_max }}</h4>
     </div>
     <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart']});
+        google.charts.load('current', {'packages': ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Элемент', 'Результат'],
-            ['Тест 1', 40,],
-            ['Тест 2', 70],
-            ['Задание 1', 66]
-          ]);
+            var data = google.visualization.arrayToDataTable([
+                ['Элемент', 'Результат'],
+                {% for item in items %}
+                    ['{{ item.name }}', {{ item.get_stat_grade }}],
+                {% endfor %}
+            ]);
 
-          var options = {
-            title: 'Результаты студента',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-          };
+            var options = {
+                title: 'Результаты студента',
+                curveType: 'function',
+                legend: {position: 'bottom'}
+            };
 
-          var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
-          chart.draw(data, options);
+            chart.draw(data, options);
         }
-      </script>
+    </script>
 {% endblock %}

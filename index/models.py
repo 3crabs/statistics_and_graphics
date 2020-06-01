@@ -61,3 +61,8 @@ class GradeItems(models.Model):
         if self.user_modified:
             return str(self.user_modified)
         return 'Система'
+
+    def get_stat_grade(self):
+        if self.grade:
+            return str(self.grade)
+        return 0
