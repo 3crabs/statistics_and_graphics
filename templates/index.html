@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container">
-        <div id="chart_div"></div>
+        <div id="chart_div" style="width: 800px; height: 500px;"></div>
         <h2 class="mx-0 my-3">Список курсов в системе</h2>
         <table class="table table-bordered table-hover">
             <thead>
@@ -37,4 +37,28 @@
             </tbody>
         </table>
     </div>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+            ['Курс', 'Количество участников', 'Средний балл', 'Просмотры'],
+            ['Курс 1', 30, 40, 200],
+            ['Курс 2', 40, 46, 250],
+            ['Курс 3', 35, 58, 300]
+            ]);
+
+            var options = {
+            chart: {
+                title: 'Статистика по курсам',
+                subtitle: 'Количество участников, Средний балл, Просмотры по курсам',
+            }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
 {% endblock %}
