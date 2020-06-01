@@ -32,22 +32,22 @@
         </table>
     </div>
     <script type="text/javascript">
-        google.charts.load('current', {'packages':['bar']});
+        google.charts.load('current', {'packages': ['bar']});
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-            ['Курс', 'Количество участников', 'Средний балл', 'Просмотры'],
-            ['Курс 1', 30, 40, 200],
-            ['Курс 2', 40, 46, 250],
-            ['Курс 3', 35, 58, 300]
+                ['Курс', 'Количество участников', 'Средний балл', 'Просмотры'],
+                {% for cours in courses %}
+                    ['{{ cours.name }}', {{ cours.count_user }}, {{ cours.get_stat_avg_final_grade }}, {{ cours.count_views }}],
+                {% endfor %}
             ]);
 
             var options = {
-            chart: {
-                title: 'Статистика по курсам',
-                subtitle: 'Количество участников, Средний балл, Просмотры по курсам',
-            }
+                chart: {
+                    title: 'Статистика по курсам',
+                    subtitle: 'Количество участников, Средний балл, Просмотры по курсам',
+                }
             };
 
             var chart = new google.charts.Bar(document.getElementById('chart_div'));

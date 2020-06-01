@@ -76,9 +76,10 @@ def get_one_course(request, course_id):
     course = User.objects.raw(sql)[0]
     sql = "select user.id        as id, " \
           "       user.firstname as name, " \
-          "(select max(timeaccess) " \
+          "(select timeaccess " \
           "        from mdl_user_lastaccess as user_lastaccess " \
-          "        where user_lastaccess.courseid = course.id) as last_access, " \
+          "        where user_lastaccess.courseid = course.id" \
+          "          and user_lastaccess.userid = user.id) as last_access, " \
           "" \
           "(select grade_grades.finalgrade as grade " \
           "from mdl_course as course, " \

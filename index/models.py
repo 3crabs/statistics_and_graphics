@@ -27,6 +27,11 @@ class Course(models.Model):
             return self.final_grade
         return "-"
 
+    def get_stat_avg_final_grade(self):
+        if self.avg_final_grade:
+            return self.avg_final_grade
+        return 0
+
 
 class GradeItems(models.Model):
     name = models.CharField(max_length=100)
