@@ -21,7 +21,7 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td><a href="/courses/{{ course.id }}">{{ course.name }}</a></td>
-                    <td>{{ course.teacher_name }}</td>
+                    <td><a href="/users/{{ course.teacher_id }}">{{ course.teacher_name }}</a></td>
                     <td>{{ course.count_user }}</td>
                     <td>{{ course.get_last_access }}</td>
                     <td>{{ course.get_avg_final_grade }}</td>
