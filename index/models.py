@@ -14,7 +14,7 @@ class Course(models.Model):
 
     def get_last_access(self):
         if self.last_access:
-            return datetime.datetime.fromtimestamp(self.last_access)
+            return str(datetime.datetime.fromtimestamp(self.last_access))
         return "-"
 
     def get_avg_final_grade(self):
