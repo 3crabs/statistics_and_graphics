@@ -43,7 +43,15 @@ def get_one_user(request, user_id):
           "(select user_lastaccess.timeaccess " \
           "from mdl_user_lastaccess as user_lastaccess " \
           "where user_lastaccess.courseid = course.id " \
-          "  and user_lastaccess.userid = user.id) as last_access " \
+          "  and user_lastaccess.userid = user.id) as last_access, " \
+          "" \
+          "(select grade_grades.finalgrade " \
+          "from mdl_grade_grades as grade_grades, " \
+          "     mdl_grade_items as grade_items " \
+          "where grade_grades.itemid = grade_items.id " \
+          "  and grade_items.itemtype = 'course' " \
+          "  and grade_grades.userid = user.id " \
+          "  and grade_items.courseid = course.id) as final_grade " \
           "" \
           "from mdl_user as user, " \
           "     mdl_role_assignments as role_assignments, " \

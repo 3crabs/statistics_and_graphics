@@ -9,6 +9,7 @@ class Course(models.Model):
     count_user = models.IntegerField()
     last_access = models.IntegerField()
     avg_final_grade = models.CharField(max_length=100)
+    final_grade = models.CharField(max_length=100)
 
     def get_last_access(self):
         if self.last_access:
@@ -18,6 +19,11 @@ class Course(models.Model):
     def get_avg_final_grade(self):
         if self.avg_final_grade:
             return self.avg_final_grade
+        return "-"
+
+    def get_final_grade(self):
+        if self.final_grade:
+            return self.final_grade
         return "-"
 
 class GradeItems(models.Model):
