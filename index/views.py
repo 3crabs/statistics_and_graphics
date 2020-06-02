@@ -182,7 +182,9 @@ def get_course_one_user(request, course_id, user_id):
           "  and context.instanceid = course.id " \
           "  and course.id = " + course_id + \
           "  and user.id = " + user_id
-    user = User.objects.raw(sql)[0]
+    user = User.objects.raw(sql)
+    if user:
+          user = User.objects.raw(sql)[0]
 
     sql = "select course.id  as id, " \
           "       course.shortname as name, " \
