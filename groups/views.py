@@ -17,6 +17,36 @@ def get_groups(request):
           "          and cohort_members.cohortid = cohort.id) as count_users " \
           "from mdl_cohort as cohort"
     groups = Group.objects.raw(sql)
+
+    for group in groups:
+        sql = "select grade_grades.id                        as id, " \
+              "       grade_grades.finalgrade as grade " \
+              "from mdl_user as user, " \
+              "     mdl_course as course, " \
+              "     mdl_cohort_members as cohort_members, " \
+              "     mdl_grade_items as grade_items, " \
+              "     mdl_grade_grades as grade_grades " \
+              "where cohort_members.userid = user.id " \
+              "  and grade_items.courseid = course.id " \
+              "  and grade_grades.itemid = grade_items.id " \
+              "  and grade_grades.userid = user.id " \
+              "  and grade_items.itemtype = 'course' " \
+              "  and cohort_members.cohortid = " + str(group.id)
+        academic_performances = GradeItems.objects.raw(sql)
+        sum = 0
+        all_count = 0
+        for academic_performance in academic_performances:
+            sum += academic_performance.grade
+            all_count += 1
+        print(sum)
+        avg = sum / all_count
+        print(avg)
+        count = 0
+        for academic_performance in academic_performances:
+            if academic_performance.grade > avg:
+                count += 1
+        group.academic_performance = count * 100 / all_count
+
     return render(request, 'final_grade.html', locals())
 
 
@@ -83,7 +113,7 @@ def get_one_group(request, group_id):
           "  and grade_grades.userid = user.id " \
           "  and grade_items.itemtype = 'course' " \
           "  and user.id in (" + str(user_ids).replace('[', '').replace(']', '') + ") " \
-          "group by id"
+                                                                                   "group by id"
     avgs = User.objects.raw(sql)
 
     return render(request, 'group_final_grade.html', locals())
