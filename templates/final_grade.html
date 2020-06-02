@@ -19,7 +19,7 @@
                     <td>{{ forloop.counter }}</td>
                     <td><a href="/groups/{{ group.id }}">{{ group.name }}</a></td>
                     <td>{{ group.count_users }}</td>
-                    <td>{{ group.academic_performance }}</td>
+                    <td>{{ group.get_academic_performance }}</td>
                 </tr>
             {% endfor %}
             </tbody>

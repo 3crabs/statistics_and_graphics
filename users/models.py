@@ -15,10 +15,11 @@ class User(models.Model):
     count_views = models.IntegerField()
     count_done = models.IntegerField()
     count_all = models.IntegerField()
+    final_grade = models.IntegerField()
 
     def get_done_coef(self):
         if self.count_done and self.count_views:
-            return self.count_done / self.count_views
+            return int(self.count_done * 100 / self.count_views) / 100
         return 0
 
     def get_count_done(self):
@@ -38,20 +39,25 @@ class User(models.Model):
 
     def get_coef(self):
         if self.count_in and self.count_views:
-            return self.count_views / self.count_in
+            return int(self.count_views * 100 / self.count_in) / 100
         return "-"
 
     def get_end_grade(self):
         if self.end_grade:
-            return self.end_grade
+            return int(self.end_grade * 100) / 100
         return "-"
 
     def get_end_grade_max(self):
         if self.end_grade_max:
-            return self.end_grade_max
+            return int(self.end_grade_max * 100) / 100
         return "-"
 
     def get_last_access(self):
         if self.last_access:
             return str(datetime.datetime.fromtimestamp(self.last_access))
         return "-"
+
+    def get_final_grade(self):
+        if self.final_grade:
+            return int(self.final_grade * 100) / 100
+        return '-'

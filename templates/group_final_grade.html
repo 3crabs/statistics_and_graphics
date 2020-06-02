@@ -34,7 +34,7 @@
                 <td></td>
                 <td>Средний балл</td>
                 {% for avg in avgs %}
-                    <td>{{ avg.final_grade }}</td>
+                    <td>{{ avg.get_final_grade }}</td>
                 {% endfor %}
             </tr>
             </tbody>
