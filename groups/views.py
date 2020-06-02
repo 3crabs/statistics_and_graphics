@@ -104,14 +104,15 @@ def get_one_group(request, group_id):
           "     mdl_cohort_members as cohort_members, " \
           "     mdl_grade_items as grade_items, " \
           "     mdl_grade_grades as grade_grades " \
-          "where cohort_members.cohortid = 3 " \
+          "where cohort_members.cohortid = " + str(group_id) + \
           "  and cohort_members.userid = user.id " \
           "  and grade_items.courseid = course.id " \
           "  and grade_grades.itemid = grade_items.id " \
           "  and grade_grades.userid = user.id " \
           "  and grade_items.itemtype = 'course' " \
-          "  and user.id in (" + str(user_ids).replace('[', '').replace(']', '') + ") " \
-                                                                                   "group by id"
+          "  and user.id in (" + str(user_ids).replace('[', '').replace(']', '') + ") " + \
+          "group by id"
+    print(user_ids)
     avgs = User.objects.raw(sql)
 
     return render(request, 'group_final_grade.html', locals())
