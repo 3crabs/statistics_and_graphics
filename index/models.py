@@ -24,7 +24,7 @@ class Course(models.Model):
 
     def get_done_coef(self):
         if self.count_done and self.count_views:
-            return self.count_done/self.count_views
+            return int(self.count_done*100/self.count_views)/100
         return 0
 
     def get_count_in(self):
@@ -39,7 +39,7 @@ class Course(models.Model):
 
     def get_coef(self):
         if self.count_in and self.count_views:
-            return self.count_views / self.count_in
+            return int(self.count_views*100 / self.count_in)/100
         return "-"
 
     def get_last_access(self):
@@ -49,23 +49,24 @@ class Course(models.Model):
 
     def get_avg_final_grade(self):
         if self.avg_final_grade:
-            return self.avg_final_grade
+            return int(self.avg_final_grade*100)/100
         return "-"
 
     def get_final_grade(self):
         if self.final_grade:
-            return self.final_grade
+            return int(self.final_grade*100)/100
         return "-"
 
     def get_final_max_grade(self):
         if self.final_grade and self.grade_max:
-            return str(self.final_grade) + '/' + str(self.grade_max)
+            return str(int(self.final_grade*100)/100) + '/' + str(int(self.grade_max*100)/100)
         return "-"
 
     def get_stat_avg_final_grade(self):
         if self.avg_final_grade:
             return self.avg_final_grade
         return 0
+
 
 
 class GradeItems(models.Model):
@@ -95,8 +96,13 @@ class GradeItems(models.Model):
 
     def get_grade(self):
         if self.grade:
-            return str(self.grade)
-        return str(self.grade_min)
+            return str(int(self.grade*100)/100)
+        return str(int(self.grade_min*100)/100)
+
+    def get_grade_max(self):
+        if self.grade_max:
+            return str(int(self.grade_max*100)/100)
+        return '-'
 
     def get_user_modified(self):
         if self.user_modified:

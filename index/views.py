@@ -61,6 +61,7 @@ def get_one_course(request, course_id):
     sql = "select course.id  as id, " \
           "       course.shortname as name, " \
           "       CONCAT(user.lastname, ' ', user.firstname)   as teacher_name, " \
+          "       user.id   as teacher_id, " \
           "" \
           "(select count(*)" \
           "    from mdl_user as user," \

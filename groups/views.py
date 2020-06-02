@@ -112,7 +112,6 @@ def get_one_group(request, group_id):
           "  and grade_items.itemtype = 'course' " \
           "  and user.id in (" + str(user_ids).replace('[', '').replace(']', '') + ") " + \
           "group by id"
-    print(user_ids)
     avgs = User.objects.raw(sql)
 
     return render(request, 'group_final_grade.html', locals())
