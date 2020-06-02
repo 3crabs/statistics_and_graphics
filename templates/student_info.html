@@ -14,7 +14,7 @@
             </form>
         </div>
         <div class="d-flex justify-content-between mb-2">
-            <h3>Студент: {{ user.name }}</h3>
+            <h3>Студент: <a href="/users/{{ user.id }}">{{ user.name }}</a></h3>
             <h3>Курс: {{ course.name }}</h3>
         </div>
         <form method="POST" id="grade" action="/courses/{{ course.id }}/users/{{ user.id }}/save">
