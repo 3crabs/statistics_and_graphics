@@ -5,7 +5,9 @@
         <div id="chart_div" style="width: 900px; height: 500px"></div>
         <div class="d-flex justify-content-between">
             <h2 class="mx-0 my-3">Результаты</h2>
-            <button class="btn btn-primary my-auto" type="submit" form="grade">Сохранить оценки</button>
+            {% if can_update %}
+                <button class="btn btn-primary my-auto" type="submit" form="grade">Сохранить оценки</button>
+            {% endif %}
             <form action="/courses/{{ course.id }}/users/{{ user.id }}/download" method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary my-auto">Экспорт оценок</button>
@@ -36,7 +38,13 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.get_type }}</td>
-                    <td><input value="{{ item.get_grade }}" name="{{ item.grade_id }}" form="grade"/></td>
+                    <td>
+                        {% if can_update %}
+                            <input value="{{ item.get_grade }}" name="{{ item.grade_id }}" form="grade"/>
+                        {% else %}
+                            {{ item.get_grade }}
+                        {% endif %}
+                    </td>
                     <td>{{ item.grade_max }}</td>
                     <td>{{ item.get_user_modified }}</td>
                     <td>{{ item.get_time }}</td>

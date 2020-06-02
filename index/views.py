@@ -166,6 +166,10 @@ def get_one_course(request, course_id):
           "  and context.instanceid = course.id " \
           "  and course.id = " + course_id
     users = User.objects.raw(sql)
+
+    can_update = request.user.groups.filter(name='teacher').exists() or request.user.groups.filter(
+        name='admin').exists()
+
     return render(request, 'course_info.html', locals())
 
 
@@ -184,7 +188,7 @@ def get_course_one_user(request, course_id, user_id):
           "  and user.id = " + user_id
     user = User.objects.raw(sql)
     if user:
-          user = User.objects.raw(sql)[0]
+        user = User.objects.raw(sql)[0]
 
     sql = "select course.id  as id, " \
           "       course.shortname as name, " \
@@ -256,6 +260,8 @@ def get_course_one_user(request, course_id, user_id):
     if end_grade:
         end_grade = end_grade[0]
 
+    can_update = request.user.groups.filter(name='teacher').exists() or request.user.groups.filter(
+        name='admin').exists()
     return render(request, 'student_info.html', locals())
 
 

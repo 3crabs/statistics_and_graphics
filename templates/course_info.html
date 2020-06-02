@@ -5,7 +5,9 @@
         <div id="chart_div"></div>
         <div class="d-flex justify-content-between">
             <h2 class="mx-0 my-3">Информация о курсе</h2>
-            <button class="btn btn-primary my-auto" type="submit" form="finalgrade">Сохранить оценки</button>
+            {% if can_update %}
+                <button class="btn btn-primary my-auto" type="submit" form="finalgrade">Сохранить оценки</button>
+            {% endif %}
             <form action="/courses/{{ course.id }}/download" method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary my-auto">Экспорт оценок</button>
@@ -39,7 +41,12 @@
                     <td>{{ user.get_last_access }}</td>
                     <td>
                         {% if user.end_grade_id %}
-                            <input value="{{ user.get_end_grade }}" name="{{ user.end_grade_id }}" form="finalgrade"/>
+                            {% if can_update %}
+                                <input value="{{ user.get_end_grade }}" name="{{ user.end_grade_id }}"
+                                       form="finalgrade"/>
+                            {% else %}
+                                {{ user.get_end_grade }}
+                            {% endif %}
                         {% else %}
                             {{ user.get_end_grade }}
                         {% endif %}
