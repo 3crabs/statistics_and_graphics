@@ -46,7 +46,11 @@
                         {% endif %}
                     </td>
                     <td>{{ item.get_grade_max }}</td>
-                    <td>{{ item.get_user_modified }}</td>
+                    {% if item.get_user_modified == user.name %}
+                        <td>Система</td>
+                    {% else %}
+                        <td>{{ item.get_user_modified }}</td>
+                    {% endif %}
                     <td>{{ item.get_time }}</td>
                 </tr>
             {% endfor %}
