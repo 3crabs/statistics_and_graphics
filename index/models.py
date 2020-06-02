@@ -11,6 +11,7 @@ class Course(models.Model):
     last_access = models.IntegerField()
     avg_final_grade = models.CharField(max_length=100)
     final_grade = models.CharField(max_length=100)
+    grade_max = models.CharField(max_length=100)
     count_in = models.IntegerField()
     count_views = models.IntegerField()
     count_done = models.IntegerField()
@@ -54,6 +55,11 @@ class Course(models.Model):
     def get_final_grade(self):
         if self.final_grade:
             return self.final_grade
+        return "-"
+
+    def get_final_max_grade(self):
+        if self.final_grade and self.grade_max:
+            return str(self.final_grade) + '/' + str(self.grade_max)
         return "-"
 
     def get_stat_avg_final_grade(self):

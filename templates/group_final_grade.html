@@ -26,10 +26,17 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ user.name }}</td>
                     {% for item in user.courses %}
-                        <td>{{ item.get_final_grade }}</td>
+                        <td>{{ item.get_final_max_grade }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
+            <tr>
+                <td></td>
+                <td>Средний балл</td>
+                {% for avg in avgs %}
+                    <td>{{ avg.final_grade }}</td>
+                {% endfor %}
+            </tr>
             </tbody>
         </table>
     </div>
