@@ -16,7 +16,7 @@
                 <th>№</th>
                 <th scope="col">ФИО/Курс</th>
                 {% for item in header.courses %}
-                    <th scope="col">{{ item.name }}</th>
+                    <th scope="col"><a href="/courses/{{ item.id }}">{{ item.name }}</a></th>
                 {% endfor %}
             </tr>
             </thead>
@@ -24,7 +24,7 @@
             {% for user in users %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ user.name }}</td>
+                    <td><a href="/users/{{ user.id }}">{{ user.name }}</a></td>
                     {% for item in user.courses %}
                         <td>{{ item.get_final_max_grade }}</td>
                     {% endfor %}
