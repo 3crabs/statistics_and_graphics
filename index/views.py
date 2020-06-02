@@ -217,7 +217,7 @@ def get_course_one_user(request, course_id, user_id):
           "       grade_grades.id as grade_id, " \
           "       grade_grades.timemodified as time, " \
           "" \
-          "(select user_1.firstname " \
+          "(select CONCAT(user_1.lastname, ' ', user_1.firstname) " \
           "        from mdl_user as user_1 " \
           "        where grade_grades.usermodified = user_1.id) as user_modified " \
           "" \
