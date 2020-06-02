@@ -193,7 +193,7 @@ def get_course_one_user(request, course_id, user_id):
 
     sql = "select course.id  as id, " \
           "       course.shortname as name, " \
-          "       user.firstname   as teacher_name, " \
+          "       CONCAT(user.lastname, ' ', user.firstname)   as teacher_name, " \
           "" \
           "(select count(*)" \
           "    from mdl_user as user," \
@@ -268,7 +268,7 @@ def get_course_one_user(request, course_id, user_id):
 
 def save_one_course(request, course_id):
     sql = "select user.id        as id, " \
-          "       user.firstname as name, " \
+          "       CONCAT(user.lastname, ' ', user.firstname) as name, " \
           "(select max(timeaccess) " \
           "        from mdl_user_lastaccess as user_lastaccess " \
           "        where user_lastaccess.courseid = course.id) as last_access, " \
@@ -353,7 +353,7 @@ def save_course_one_user(request, course_id, user_id):
 
 def download_course_one_user(request, course_id, user_id):
     sql = "select user.id        as id, " \
-          "       user.firstname as name " \
+          "       CONCAT(user.lastname, ' ', user.firstname) as name " \
           "from mdl_user as user, " \
           "     mdl_role_assignments as role_assignments, " \
           "     mdl_context as context, " \
@@ -368,7 +368,7 @@ def download_course_one_user(request, course_id, user_id):
 
     sql = "select course.id  as id, " \
           "       course.shortname as name, " \
-          "       user.firstname   as teacher_name, " \
+          "       CONCAT(user.lastname, ' ', user.firstname)   as teacher_name, " \
           "" \
           "(select count(*)" \
           "    from mdl_user as user," \
@@ -446,7 +446,8 @@ def download_course_one_user(request, course_id, user_id):
 def download_one_course(request, course_id):
     sql = "select course.id  as id, " \
           "       course.shortname as name, " \
-          "       user.firstname   as teacher_name, " \
+          "       CONCAT(user.lastname, ' ', user.firstname)   as teacher_name, " \
+          "       user.id   as teacher_id, " \
           "" \
           "(select count(*)" \
           "    from mdl_user as user," \
@@ -468,10 +469,43 @@ def download_one_course(request, course_id):
           "  and course.id = " + course_id
     course = User.objects.raw(sql)[0]
     sql = "select user.id        as id, " \
-          "       user.firstname as name, " \
-          "(select max(timeaccess) " \
+          "       CONCAT(user.lastname, ' ', user.firstname) as name, " \
+          "(select timeaccess " \
           "        from mdl_user_lastaccess as user_lastaccess " \
-          "        where user_lastaccess.courseid = course.id) as last_access, " \
+          "        where user_lastaccess.courseid = course.id" \
+          "          and user_lastaccess.userid = user.id) as last_access, " \
+          "" \
+          "(select count(*) " \
+          "from mdl_logstore_standard_log as log " \
+          "where log.action = 'viewed' " \
+          "  and log.target like '%%course%%' " \
+          "  and log.courseid = course.id" \
+          "  and log.userid = user.id) as count_views, " \
+          "" \
+          "(select count(*) " \
+          "from mdl_course as course_1, " \
+          "     mdl_user as user_1, " \
+          "     mdl_grade_items as grade_items," \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course_1.id " \
+          "  and grade_grades.itemid = grade_items.id " \
+          "  and grade_grades.userid = user_1.id " \
+          "  and grade_items.itemtype = 'mod'" \
+          "  and course_1.id = course.id " \
+          "  and grade_grades.finalgrade != 0 " + \
+          "  and user_1.id = user.id) as count_done, " + \
+          "" \
+          "(select count(*) " \
+          "from mdl_course as course_1, " \
+          "     mdl_user as user_1, " \
+          "     mdl_grade_items as grade_items," \
+          "     mdl_grade_grades as grade_grades " \
+          "where grade_items.courseid = course_1.id " \
+          "  and grade_grades.itemid = grade_items.id " \
+          "  and grade_grades.userid = user_1.id " \
+          "  and grade_items.itemtype = 'mod'" \
+          "  and course_1.id = course.id " + \
+          "  and user_1.id = user.id) as count_all, " + \
           "" \
           "(select grade_grades.finalgrade as grade " \
           "from mdl_course as course, " \
@@ -520,7 +554,7 @@ def download_one_course(request, course_id):
           "  and course.id = " + course_id
     users = User.objects.raw(sql)
 
-    path = create_xls_info_course(course.name, course.teacher_name, users)
+    path = create_xls_info_course(course.teacher_name, course.name, users)
 
     file = open(path, 'rb')
     response = HttpResponse(file, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')

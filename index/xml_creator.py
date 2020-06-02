@@ -55,6 +55,9 @@ def create_xls_info_course(teacher_name: str, course_name: str, items: []):
     sheet.write(row, 2, "Последний доступ")
     sheet.write(row, 3, "Итоговая оценка")
     sheet.write(row, 4, "Максимальная оценка")
+    sheet.write(row, 5, "Просмотры")
+    sheet.write(row, 6, "Выполнено")
+    sheet.write(row, 7, "Коэффициент")
     for i, val in enumerate(items):
         row += 1
         sheet.write(row, 0, i + 1)
@@ -62,6 +65,9 @@ def create_xls_info_course(teacher_name: str, course_name: str, items: []):
         sheet.write(row, 2, val.get_last_access())
         sheet.write(row, 3, val.get_end_grade())
         sheet.write(row, 4, val.get_end_grade_max())
+        sheet.write(row, 5, val.get_count_views())
+        sheet.write(row, 6, val.get_count_done())
+        sheet.write(row, 7, val.get_done_coef())
 
     path = "index/xml/course_info.xlsx"
     book.save(path)
