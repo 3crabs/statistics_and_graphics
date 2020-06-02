@@ -1,5 +1,3 @@
-import os
-
 import xlwt
 
 
@@ -21,6 +19,7 @@ def create_xls_grade(student_name: str, course_name: str, items: [], end_grade: 
     sheet.write(row, 3, "Оценка")
     sheet.write(row, 4, "Максимальная оценка")
     sheet.write(row, 5, "Оценил")
+    sheet.write(row, 6, "Дата")
     for i, val in enumerate(items):
         row += 1
         sheet.write(row, 0, i + 1)
@@ -28,7 +27,11 @@ def create_xls_grade(student_name: str, course_name: str, items: [], end_grade: 
         sheet.write(row, 2, val.get_type())
         sheet.write(row, 3, val.get_grade())
         sheet.write(row, 4, val.grade_max)
-        sheet.write(row, 5, val.get_user_modified())
+        if val.get_user_modified() == student_name:
+            sheet.write(row, 5, 'Система')
+        else:
+            sheet.write(row, 5, val.get_user_modified())
+        sheet.write(row, 6, val.get_time())
     row += 1
     sheet.write(row, 0, "Итоговая")
     sheet.write(row, 1, end_grade)
@@ -74,7 +77,7 @@ def create_xls_info_course(teacher_name: str, course_name: str, items: []):
     return path
 
 
-def create_xls_group(group_name, header, users):
+def create_xls_group(group_name, header, users, avgs: []):
     book = xlwt.Workbook(encoding="utf-8")
     sheet = book.add_sheet("Группа")
     row = 0
@@ -91,6 +94,10 @@ def create_xls_group(group_name, header, users):
         sheet.write(row, 1, val.name)
         for i in range(len(val.courses)):
             sheet.write(row, i + 2, val.courses[i].get_final_grade())
+    row += 1
+    sheet.write(row, 1, "Средний балл")
+    for i in range(len(avgs)):
+        sheet.write(row, i + 2, avgs[i].get_final_grade())
 
     path = "index/xml/group.xlsx"
     book.save(path)

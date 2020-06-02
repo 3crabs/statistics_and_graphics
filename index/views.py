@@ -364,7 +364,9 @@ def download_course_one_user(request, course_id, user_id):
           "  and context.instanceid = course.id " \
           "  and course.id = " + course_id + \
           "  and user.id = " + user_id
-    user = User.objects.raw(sql)[0]
+    user = User.objects.raw(sql)
+    if user:
+        user = User.objects.raw(sql)[0]
 
     sql = "select course.id  as id, " \
           "       course.shortname as name, " \
@@ -397,8 +399,9 @@ def download_course_one_user(request, course_id, user_id):
           "       grade_items.itemmodule as type, " \
           "       grade_grades.finalgrade as grade, " \
           "       grade_grades.id as grade_id, " \
+          "       grade_grades.timemodified as time, " \
           "" \
-          "(select user_1.firstname " \
+          "(select CONCAT(user_1.lastname, ' ', user_1.firstname) " \
           "        from mdl_user as user_1 " \
           "        where grade_grades.usermodified = user_1.id) as user_modified " \
           "" \
