@@ -215,6 +215,7 @@ def get_course_one_user(request, course_id, user_id):
           "       grade_items.itemmodule as type, " \
           "       grade_grades.finalgrade as grade, " \
           "       grade_grades.id as grade_id, " \
+          "       grade_grades.timemodified as time, " \
           "" \
           "(select user_1.firstname " \
           "        from mdl_user as user_1 " \

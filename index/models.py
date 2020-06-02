@@ -70,6 +70,12 @@ class GradeItems(models.Model):
     grade = models.IntegerField()
     grade_id = models.IntegerField()
     user_modified = models.CharField(max_length=100)
+    time = models.IntegerField()
+
+    def get_time(self):
+        if self.time:
+            return str(datetime.datetime.fromtimestamp(self.time))
+        return "-"
 
     def get_type(self):
         if self.type == 'quiz':

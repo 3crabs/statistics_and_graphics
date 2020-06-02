@@ -27,6 +27,7 @@
                 <th scope="col">Оценка</th>
                 <th scope="col">Максимальная оценка</th>
                 <th scope="col">Оценил</th>
+                <th scope="col">Дата</th>
             </tr>
             </thead>
             <tbody>
@@ -38,6 +39,7 @@
                     <td><input value="{{ item.get_grade }}" name="{{ item.grade_id }}" form="grade"/></td>
                     <td>{{ item.grade_max }}</td>
                     <td>{{ item.get_user_modified }}</td>
+                    <td>{{ item.get_time }}</td>
                 </tr>
             {% endfor %}
             </tbody>
