@@ -38,9 +38,7 @@ def get_groups(request):
         for academic_performance in academic_performances:
             sum += academic_performance.grade
             all_count += 1
-        print(sum)
         avg = sum / all_count
-        print(avg)
         count = 0
         for academic_performance in academic_performances:
             if academic_performance.grade > avg:
