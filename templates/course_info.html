@@ -15,7 +15,7 @@
         </div>
         <div class="d-flex justify-content-between">
             <h3>Курс: {{ course.name }}</h3>
-            <h3>Преподаватель: {{ course.teacher_name }}</h3>
+            <h3>Преподаватель: <a href="/users/{{ course.teacher_id }}">{{ course.teacher_name }}</a></h3>
         </div>
         <form method="POST" id="finalgrade" action="/courses/{{ course.id }}/save">
             {% csrf_token %}
