@@ -13,6 +13,18 @@ class User(models.Model):
     courses = []
     count_in = models.IntegerField()
     count_views = models.IntegerField()
+    count_done = models.IntegerField()
+    count_all = models.IntegerField()
+
+    def get_done_coef(self):
+        if self.count_done and self.count_views:
+            return self.count_done / self.count_views
+        return 0
+
+    def get_count_done(self):
+        if self.count_done and self.count_all:
+            return str(self.count_done) + '/' + str(self.count_all)
+        return 0
 
     def get_count_in(self):
         if self.count_in:
